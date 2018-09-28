@@ -48,7 +48,7 @@ inputs:
 
   - id: samse_maxOcc
     type: long
-    default: 3
+    default: 10
 
   - id: thread_count
     type: long

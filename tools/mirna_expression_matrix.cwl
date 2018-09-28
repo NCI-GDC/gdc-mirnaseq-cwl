@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/mirna-profiler:ce50c6e2c06f230f16bc84e8152f2b4e30749487db3a98a21989bfdc6823ee30
+    dockerPull: quay.io/ncigdc/mirna-profiler:f47ef7f4de561344a9fc0dc7f752f486dfd19596bcc08f3d84ccdfa6e5deddaf
   - class: InitialWorkDirRequirement
     listing:
       - entryname: $(inputs.stats_mirna_species_txt.basename)

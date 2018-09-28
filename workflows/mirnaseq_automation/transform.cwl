@@ -10,8 +10,6 @@ requirements:
   - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/amplicon_kit.yml
-      - $import: ../../tools/capture_kit.yml
       - $import: ../../tools/readgroup.yml
   - class: StepInputExpressionRequirement
   - class: SubworkflowFeatureRequirement
@@ -21,14 +19,6 @@ inputs:
     type: string
   - id: job_uuid
     type: string
-  - id: amplicon_kit_set_file_list
-    type:
-      type: array
-      items: ../../tools/amplicon_kit.yml#amplicon_kit_set_file
-  - id: capture_kit_set_file_list
-    type:
-      type: array
-      items: ../../tools/capture_kit.yml#capture_kit_set_file
   - id: readgroup_fastq_pe_file_list
     type:
       type: array
@@ -41,18 +31,6 @@ inputs:
     type:
       type: array
       items: ../../tools/readgroup.yml#readgroups_bam_file
-  - id: known_snp
-    type: File
-    secondaryFiles:
-      - .tbi
-  - id: run_bamindex
-    type:
-      type: array
-      items: long
-  - id: run_markduplicates
-    type:
-      type: array
-      items: long
   - id: reference_sequence
     type: File
     secondaryFiles:
@@ -69,7 +47,7 @@ inputs:
 outputs:
   - id: output_bam
     type: File
-    outputSource: gatk_applybqsr/output_bam
+    outputSource: bam_index/output
   - id: sqlite
     type: File
     outputSource: merge_all_sqlite/destination_sqlite
@@ -301,92 +279,38 @@ steps:
     out:
       - id: output
 
-  - id: conditional_markduplicates
-    run: conditional_markduplicates.cwl
-    scatter: run_markduplicates
+  - id: bam_index
+    run: bam_index.cwl
     in:
       - id: bam
         source: bam_reheader/output
-      - id: job_uuid
-        source: job_uuid
-      - id: run_markduplicates
-        source: run_markduplicates
-    out:
-      - id: output
-      - id: sqlite
-        
-  - id: conditional_index
-    run: conditional_bamindex.cwl
-    scatter: run_bamindex
-    in:
-      - id: bam
-        source: bam_reheader/output
-      - id: run_bamindex
-        source: run_bamindex
       - id: thread_count
         source: thread_count
     out:
       - id: output
       - id: sqlite
 
-  - id: decide_markduplicates_index
-    run: ../../tools/decider_conditional_bams.cwl
-    in:
-      - id: conditional_bam1
-        source: conditional_markduplicates/output
-      - id: conditional_sqlite1
-        source: conditional_markduplicates/sqlite
-      - id: conditional_bam2
-        source: conditional_index/output
-      - id: conditional_sqlite2
-        source: conditional_index/sqlite
-    out:
-      - id: output
-      - id: sqlite
-
-  - id: gatk_baserecalibrator
-    run: ../../tools/gatk4_baserecalibrator.cwl
-    in:
-      - id: input
-        source: decide_markduplicates_index/output
-      - id: known-sites
-        source: known_snp
-      - id: reference
-        source: reference_sequence
-    out:
-      - id: output_grp
-
-  - id: gatk_applybqsr
-    run: ../../tools/gatk4_applybqsr.cwl
-    in:
-      - id: input
-        source: decide_markduplicates_index/output
-      - id: bqsr-recal-file
-        source: gatk_baserecalibrator/output_grp
-    out:
-      - id: output_bam
-
-  - id: picard_validatesamfile_bqsr
+  - id: picard_validatesamfile
     run: ../../tools/picard_validatesamfile.cwl
     in:
       - id: INPUT
-        source: gatk_applybqsr/output_bam
+        source: bam_index/output
       - id: VALIDATION_STRINGENCY
         valueFrom: "STRICT"
     out:
       - id: OUTPUT
 
   #need eof and dup QNAME detection
-  - id: picard_validatesamfile_bqsr_to_sqlite
+  - id: picard_validatesamfile_to_sqlite
     run: ../../tools/picard_validatesamfile_to_sqlite.cwl
     in:
       - id: bam
-        source: gatk_applybqsr/output_bam
+        source: bam_index/output
         valueFrom: $(self.basename)
       - id: input_state
-        valueFrom: "gatk_applybqsr_readgroups"
+        valueFrom: "mirnaseq_readgroups"
       - id: metric_path
-        source: picard_validatesamfile_bqsr/OUTPUT
+        source: picard_validatesamfile/OUTPUT
       - id: job_uuid
         source: job_uuid
     out:
@@ -396,19 +320,11 @@ steps:
     run: metrics.cwl
     in:
       - id: bam
-        source: gatk_applybqsr/output_bam
-      - id: amplicon_kit_set_file_list
-        source: amplicon_kit_set_file_list
-      - id: capture_kit_set_file_list
-        source: capture_kit_set_file_list
-      - id: fasta
-        source: reference_sequence
+        source: bam_index/output
       - id: input_state
-        valueFrom: "gatk_applybqsr_readgroups"
+        valueFrom: "mirnaseq_readgroups"
       - id: job_uuid
         source: job_uuid
-      - id: known_snp
-        source: known_snp
     out:
       - id: sqlite
 
@@ -418,7 +334,7 @@ steps:
       - id: awk_expression
         valueFrom: "{arr[length($10)]+=1} END {for (i in arr) {print i\" \"arr[i]}}"
       - id: bam
-        source: gatk_applybqsr/output_bam 
+        source: bam_index/output
       - id: mirbase_db
         valueFrom: "mirbase"
       - id: species_code
@@ -444,16 +360,16 @@ steps:
     run: integrity.cwl
     in:
       - id: bai
-        source: gatk_applybqsr/output_bam
+        source: bam_index/output
         valueFrom: $(self.secondaryFiles[0])
       - id: bam
-        source: gatk_applybqsr/output_bam
+        source: bam_index/output
       - id: mirnas
         source: mirna_profiling/mirna_tcga_mirnas_quant
       - id: isoforms
         source: mirna_profiling/mirna_tcga_isoforms_quant
       - id: input_state
-        valueFrom: "gatk_applybqsr_readgroups"
+        valueFrom: "mirnaseq_readgroups"
       - id: job_uuid
         source: job_uuid
     out:
@@ -466,8 +382,7 @@ steps:
         source: [
           merge_sqlite_bwa_pe/destination_sqlite,
           merge_sqlite_bwa_se/destination_sqlite,
-          decide_markduplicates_index/sqlite,
-          picard_validatesamfile_bqsr_to_sqlite/sqlite,
+          bam_index/sqlite,
           metrics/sqlite,
           integrity/sqlite
           ]
