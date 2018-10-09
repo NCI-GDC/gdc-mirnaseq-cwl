@@ -3,6 +3,7 @@
 cwlVersion: v1.0
 
 requirements:
+  - class: SubworkflowFeatureRequirement
   - class: InlineJavascriptRequirement
   - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
@@ -13,22 +14,33 @@ class: Workflow
 
 inputs:
   - id: input
-    type: ../../tools/readgroup.yml#readgroup_fastq_se_file
+    type: '../../tools/readgroup.yml#readgroup_fastq_se_file'
+  - id: job_uuid
 
 outputs:
   - id: output
-    type: ../../tools/readgroup.yml#readgroup_fastq_se_file
-    outputSource: emit_readgroup_fastq_se_file/output
+    outputSource:
+      - emit_readgroup_fastq_se_file/output
+    type: '../../tools/readgroup.yml#readgroup_fastq_se_file'
 
 steps:
+  - id: conditional_fastq_trimming
+    run: conditional_fastq_trimming.cwl
+    in:
+      - id: untrimmed_fastq
+        source: input
+        valueFrom: $(self.fastq)
+    out:
+      - id: output
+
   - id: fastq_cleaner_se
     run: ../../tools/fastq_cleaner_se.cwl
     in:
       - id: fastq
-        source: input
-        valueFrom: $(self.fastq)
+        source: conditional_fastq_trimming/output
     out:
       - id: cleaned_fastq
+      - id: result_json
 
   - id: emit_readgroup_fastq_se_file
     run: ../../tools/emit_readgroup_fastq_se_file.cwl
@@ -40,3 +52,16 @@ steps:
         valueFrom: $(self.readgroup_meta)
     out:
       - id: output
+
+  - id: json_to_sqlite
+    run: ../../tools/json_to_sqlite.cwl
+    in:
+      - id: input_json
+        source: fastq_cleaner_se/result_json
+      - id: job_uuid
+        source: job_uuid
+      - id: table_name
+        valueFrom: "fastq_cleaner_se"
+    out:
+      - id: sqlite
+      - id: log
