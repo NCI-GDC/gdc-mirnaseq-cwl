@@ -81,6 +81,8 @@ inputs:
     type: 'string[]?'
   - id: five_prime_bases_to_trim
     type: int?
+  - id: thread_count
+    type: long
 
 outputs:
   - id: indexd_bam_uuid

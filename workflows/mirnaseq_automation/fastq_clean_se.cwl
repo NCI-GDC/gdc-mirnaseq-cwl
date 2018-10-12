@@ -15,13 +15,13 @@ class: Workflow
 
 inputs:
   - id: input
-    type: '../../tools/readgroup.yml#readgroup_fastq_se_file'
+    type: ../../tools/readgroup.yml#readgroup_fastq_se_file
   - id: job_uuid
     type: string
 
 outputs:
   - id: output
-    type: '../../tools/readgroup.yml#readgroup_fastq_se_file'
+    type: ../../tools/readgroup.yml#readgroup_fastq_se_file
     outputSource: emit_readgroup_fastq_se_file/output
   - id: sqlite
     type: File
@@ -33,7 +33,7 @@ steps:
     in:
       - id: fastq
         source: input
-        valueFrom: $(self.fastq) 
+        valueFrom: $(self.fastq)
     out:
       - id: cleaned_fastq
       - id: result_json
