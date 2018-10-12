@@ -10,9 +10,7 @@ class: ExpressionTool
 inputs:
   - id: conditional_fastq1
     format: "edam:format_1930"
-    type:
-      type: array
-      items: File
+    type: File
   - id: conditional_fastq2
     format: "edam:format_1930"
     type:
@@ -22,16 +20,17 @@ inputs:
 outputs:
   - id: output
     format: "edam:format_1930"
-    type: file
-    
+    type: File
+
 # If the second BAM exists, take it. Otherwise take the first BAM.
+# There should only be one BAM from the second conditional so throw unhandled if other than 1 or 0
 expression: |
   ${
-      if (inputs.conditional_fastq2.length == 1 && inputs.conditional_fastq1.length == 1) {
+      if (inputs.conditional_fastq2.length == 1) {
           var output = inputs.conditional_fastq2[0];
       }
-      else if (inputs.conditional_fastq2.length == 0 && inputs.conditional_fastq1.length == 1) {
-          var output = inputs.conditional_fastq1[0];
+      else if (inputs.conditional_fastq2.length == 0) {
+          var output = inputs.conditional_fastq1;
       }
       else {
           throw "unhandled"

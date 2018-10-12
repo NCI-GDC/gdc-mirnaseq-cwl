@@ -1,0 +1,49 @@
+{
+    "bam_name":"CPT0018430002_gdc_realn.bam",
+    "readgroup_fastq_pe_file_list":[],
+    "readgroup_fastq_se_file_list": [{
+        "fastq": {
+            "class": "File",
+            "path": "/mnt/SCRATCH/dan-test/180724_UNC32-K00270_0106_BHWK3MBBXX_TCGGCA_S23_L007_R1_001.fastq.gz"
+        },
+        "readgroup_meta": {
+            "CN": "UNC",
+            "DT": "2018-07-24T00:00:00-0500",
+            "ID": "180724_UNC32-K00270_0106_BHWK3MBBXX_TCGGCA_S23_L007",
+            "LB": "45a7edea-8284-4739-af8d-fbac7e08b6b1",
+            "PL": "ILLUMINA",
+            "PU": "BHWK3MBBXX.1.TCGGCA",
+            "SM": "CPT0018430002"
+        } 
+    }],
+    "readgroups_bam_file_list":[],
+    "reference_sequence": {
+        "class": "File",
+        "format": "edam:format_1929",
+        "location": "/mnt/SCRATCH/dan-test/hg38-ref/GRCh38.d1.vd1.fa",
+        "secondaryFiles": [
+            {"class": "File",
+             "location": "/mnt/SCRATCH/dan-test/hg38-ref/GRCh38.d1.vd1.fa.amb"},
+            {"class": "File",
+             "location": "/mnt/SCRATCH/dan-test/hg38-ref/GRCh38.d1.vd1.fa.ann"},
+            {"class": "File",
+             "location": "/mnt/SCRATCH/dan-test/hg38-ref/GRCh38.d1.vd1.fa.bwt"},
+            {"class": "File",
+             "location": "/mnt/SCRATCH/dan-test/hg38-ref/GRCh38.d1.vd1.fa.fai"},
+            {"class": "File",
+             "location": "/mnt/SCRATCH/dan-test/hg38-ref/GRCh38.d1.vd1.fa.pac"},
+            {"class": "File",
+             "location": "/mnt/SCRATCH/dan-test/hg38-ref/GRCh38.d1.vd1.fa.sa"},
+            {"class": "File",
+             "location": "/mnt/SCRATCH/dan-test/hg38-ref/GRCh38.d1.vd1.dict"}
+        ]
+    },
+    "job_uuid": "be4728c3-d9b1-437b-815d-7276b125c0de",
+    "thread_count":6,
+    "three_prime_adapter_to_trim":["TGGAATTCTCGG"],
+    "three_prime_bases_to_trim":4,
+    "minimum_read_length":15,
+    "five_prime_adapter_to_trim":["GATCGTCGGACT"],
+    "five_prime_bases_to_trim":4,
+    "run_fastq_trimming":[1]
+}

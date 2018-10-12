@@ -6,6 +6,7 @@ requirements:
   - class: SubworkflowFeatureRequirement
   - class: InlineJavascriptRequirement
   - class: ScatterFeatureRequirement
+  - class: StepInputExpressionRequirement
   - class: SchemaDefRequirement
     types:
       - $import: ../../tools/readgroup.yml
@@ -16,28 +17,23 @@ inputs:
   - id: input
     type: '../../tools/readgroup.yml#readgroup_fastq_se_file'
   - id: job_uuid
+    type: string
 
 outputs:
   - id: output
-    outputSource:
-      - emit_readgroup_fastq_se_file/output
     type: '../../tools/readgroup.yml#readgroup_fastq_se_file'
+    outputSource: emit_readgroup_fastq_se_file/output
+  - id: sqlite
+    type: File
+    outputSource: json_to_sqlite/sqlite
 
 steps:
-  - id: conditional_fastq_trimming
-    run: conditional_fastq_trimming.cwl
-    in:
-      - id: untrimmed_fastq
-        source: input
-        valueFrom: $(self.fastq)
-    out:
-      - id: output
-
   - id: fastq_cleaner_se
     run: ../../tools/fastq_cleaner_se.cwl
     in:
       - id: fastq
-        source: conditional_fastq_trimming/output
+        source: input
+        valueFrom: $(self.fastq) 
     out:
       - id: cleaned_fastq
       - id: result_json

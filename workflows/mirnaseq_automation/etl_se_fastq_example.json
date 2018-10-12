@@ -39,5 +39,6 @@
   "reference_sa_gdc_id": "c9d4a9ec-751f-469a-b75c-0834f8685c19",
   "reference_sa_file_size": 1553788312,
   "thread_count": 4,
+  "run_fastq_trimming": [],
   "job_uuid": "486e9947-38f6-46ad-8435-d39782b36c7a"
 }

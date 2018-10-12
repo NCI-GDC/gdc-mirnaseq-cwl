@@ -11,44 +11,44 @@ requirements:
 class: CommandLineTool
 
 inputs:
-  - id: three_prime_adapter
-    type: 'string[]'
-  - id: untrimmed_fastq
+  - id: input_fastq 
     type: File
-  - id: three_prime_bases_removed
-    type: int
-  - id: five_prime_bases_removed
-    type: int
-  - id: minimum_length
-    type: int
+    inputBinding:
+      position: 0
   - id: five_prime_adapter
-    type: 'string[]'
+    type: 'string[]?'
+    inputBinding:
+      prefix: '-g'
+      itemSeparator: ' -g '
+  - id: three_prime_adapter
+    type: 'string[]?'
+    inputBinding:
+      prefix: '-a'
+      itemSeparator: ' -a '
+  - id: five_prime_bases_removed
+    type: int?
+    inputBinding:
+      prefix: '-u'
+  - id: three_prime_bases_removed
+    type: int?
+    inputBinding:
+      prefix: '-u -'
+      separate: false
+  - id: minimum_length
+    type: int?
+    inputBinding:
+      prefix: '-m'
+  - id: output_name
+    inputBinding:
+      prefix: '-o'
+    type: string
 
 outputs:
-  - id: adapter_size_trimmed_fastq
+  - id: output_fastq 
     type: File
     outputBinding:
-      glob: $(inputs.untrimmed_fastq.basename)
+      glob: $(inputs.output_name)
 
-arguments:
-  - position: 0
-    shellQuote: false
-    valueFrom: |
-      cutadapt -g $(inputs.five_prime_adapter.join(' -g ')) -a
-      $(inputs.three_prime_adapter.join(' -a ')) -m $(inputs.minimum_length)
-      $(inputs.untrimmed_fastq.path)
-  - position: 99
-    shellQuote: false
-    valueFrom: |
-      ${
-          var cmd = "";
-          if (inputs.five_prime_bases_removed != 0 || inputs.three_prime_bases_removed != 0) {
-              cmd = "| cutadapt -m " + inputs.minimum_length + " -u " + inputs.five_prime_bases_removed + " -u -" + inputs.three_prime_bases_removed + " -o " + inputs.untrimmed_fastq.basename + " -"
-          }
-          else {
-              cmd = "-o " + inputs.untrimmed_fastq.basename
-          }
-          return cmd
-      }
-
-baseCommand: []
+baseCommand:
+  - cutadapt
+  - --discard-casava
