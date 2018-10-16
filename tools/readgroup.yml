@@ -28,15 +28,15 @@
       - name: run_fastq_trimming
         type: long[]
       - name: three_prime_adapter_to_trim
-        type: string[]
+        type: string[]?
       - name: three_prime_bases_to_trim
-        type: int
+        type: int?
       - name: minimum_read_length
-        type: int
+        type: int?
       - name: five_prime_adapter_to_trim
-        type: string[]
+        type: string[]?
       - name: five_prime_bases_to_trim
-        type: int
+        type: int?
 
   - name: readgroup_fastq_pe_file
     type: record

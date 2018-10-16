@@ -14,8 +14,6 @@
             "SM": "CPT0018430002",
             "three_prime_adapter_to_trim":["TGGAATTCTCGGGTGCCAAGG"],
             "three_prime_bases_to_trim":4,
-            "minimum_read_length":15,
-            "five_prime_adapter_to_trim":[],
             "five_prime_bases_to_trim":4,
             "run_fastq_trimming":[1]
         } 
