@@ -43,18 +43,6 @@ inputs:
       - ^.dict
   - id: thread_count
     type: long
-  - id: run_fastq_trimming
-    type: 'long[]'
-  - id: three_prime_adapter_to_trim
-    type: 'string[]?'
-  - id: three_prime_bases_to_trim
-    type: int?
-  - id: minimum_read_length
-    type: int?
-  - id: five_prime_adapter_to_trim
-    type: 'string[]?'
-  - id: five_prime_bases_to_trim
-    type: int?
 
 outputs:
   - id: output_bam
@@ -216,18 +204,6 @@ steps:
     in:
       - id: input
         source: merge_se_fastq_records/output
-      - id: three_prime_adapter_to_trim
-        source: three_prime_adapter_to_trim
-      - id: three_prime_bases_to_trim
-        source: three_prime_bases_to_trim
-      - id: minimum_read_length
-        source: minimum_read_length
-      - id: five_prime_adapter_to_trim
-        source: five_prime_adapter_to_trim
-      - id: five_prime_bases_to_trim
-        source: five_prime_bases_to_trim
-      - id: run_fastq_trimming
-        source: run_fastq_trimming
     out:
       - id: output
 

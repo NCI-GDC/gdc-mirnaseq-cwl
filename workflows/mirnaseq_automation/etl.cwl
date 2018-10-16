@@ -69,18 +69,6 @@ inputs:
     type: string
   - id: reference_sa_file_size
     type: long
-  - id: run_fastq_trimming
-    type: 'long[]'
-  - id: three_prime_adapter_to_trim
-    type: 'string[]?'
-  - id: three_prime_bases_to_trim
-    type: int?
-  - id: minimum_read_length
-    type: int?
-  - id: five_prime_adapter_to_trim
-    type: 'string[]?'
-  - id: five_prime_bases_to_trim
-    type: int?
   - id: thread_count
     type: long
 

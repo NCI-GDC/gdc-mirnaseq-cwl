@@ -14,18 +14,6 @@ class: Workflow
 inputs:
   - id: input
     type: '../../tools/readgroup.yml#readgroup_fastq_se_file'
-  - id: three_prime_adapter_to_trim
-    type: 'string[]?'
-  - id: three_prime_bases_to_trim
-    type: int?
-  - id: minimum_read_length
-    type: int?
-  - id: five_prime_adapter_to_trim
-    type: 'string[]?'
-  - id: five_prime_bases_to_trim
-    type: int?
-  - id: run_fastq_trimming
-    type: 'long[]'
 
 outputs:
   - id: output
@@ -33,24 +21,36 @@ outputs:
     outputSource: emit_readgroup_fastq_se_file/output
 
 steps:
+  - id: emit_readgroup_trimming
+    run: ../../tools/emit_readgroup_trimming.cwl
+    in:
+      - id: input 
+        source: input
+        valueFrom: $(self.readgroup_meta)
+    out:
+      - id: output
+   
   - id: fastq_adapter_trimmer_se
     run: ../../tools/fastq_trimmer_se.cwl
     scatter: run_fastq_trimming
     in:
       - id: three_prime_adapter
-        source: three_prime_adapter_to_trim
+        source: input
+        valueFrom: $(self.readgroup_meta.three_prime_adapter_to_trim) 
       - id: five_prime_adapter
-        source: five_prime_adapter_to_trim
+        source: input
+        valueFrom: $(self.readgroup_meta.five_prime_adapter_to_trim)
       - id: input_fastq
         source: input
         valueFrom: $(self.fastq) 
       - id: minimum_length
-        source: minimum_read_length
+        source: input
+        valueFrom: $(self.readgroup_meta.minimum_read_length)
       - id: output_name
         source: input
         valueFrom: $(self.fastq.basename)
       - id: run_fastq_trimming
-        source: run_fastq_trimming
+        source: emit_readgroup_trimming/output 
     out:
       - id: output_fastq 
 
@@ -59,13 +59,16 @@ steps:
     scatter: input_fastq 
     in:
       - id: three_prime_bases_removed
-        source: three_prime_bases_to_trim
+        source: input
+        valueFrom: $(self.readgroup_meta.three_prime_bases_to_trim)
       - id: five_prime_bases_removed
-        source: five_prime_bases_to_trim
+        source: input
+        valueFrom: $(self.readgroup_meta.five_prime_bases_to_trim)
       - id: input_fastq
         source: fastq_adapter_trimmer_se/output_fastq 
       - id: minimum_length
-        source: minimum_read_length
+        source: input
+        valueFrom: $(self.readgroup_meta.minimum_read_length)
       - id: output_name
         source: input 
         valueFrom: $(self.fastq.basename)
