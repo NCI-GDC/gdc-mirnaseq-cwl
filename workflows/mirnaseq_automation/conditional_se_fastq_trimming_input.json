@@ -19,6 +19,5 @@
             "five_prime_bases_to_trim":4,
             "run_fastq_trimming":[1]
         } 
-    },
-    "run_fastq_trimming": [1]
+    }
 }
