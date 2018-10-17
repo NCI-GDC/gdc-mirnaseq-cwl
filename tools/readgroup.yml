@@ -25,6 +25,18 @@
         type: ["null", string]
       - name: SM
         type: string
+      - name: run_fastq_trimming
+        type: long[]
+      - name: three_prime_adapter_to_trim
+        type: string[]?
+      - name: three_prime_bases_to_trim
+        type: int?
+      - name: minimum_read_length
+        type: int?
+      - name: five_prime_adapter_to_trim
+        type: string[]?
+      - name: five_prime_bases_to_trim
+        type: int?
 
   - name: readgroup_fastq_pe_file
     type: record

@@ -13,7 +13,13 @@
             "LB": "45a7edea-8284-4739-af8d-fbac7e08b6b1",
             "PL": "ILLUMINA",
             "PU": "BHWK3MBBXX.1.TCGGCA",
-            "SM": "CPT0018430002"
+            "SM": "CPT0018430002",
+            "three_prime_adapter_to_trim":["TGGAATTCTCGGGTGCCAAGG"],
+            "three_prime_bases_to_trim":4,
+            "minimum_read_length":15,
+            "five_prime_adapter_to_trim":[],
+            "five_prime_bases_to_trim":4,
+            "run_fastq_trimming":[1]
         } 
     }],
     "readgroups_bam_file_list":[],
@@ -38,12 +44,6 @@
              "location": "/mnt/SCRATCH/dan-test/hg38-ref/GRCh38.d1.vd1.dict"}
         ]
     },
-    "job_uuid": "be4728c3-d9b1-437b-815d-7276b125c0de",
-    "thread_count":6,
-    "three_prime_adapter_to_trim":["TGGAATTCTCGG"],
-    "three_prime_bases_to_trim":4,
-    "minimum_read_length":15,
-    "five_prime_adapter_to_trim":["GATCGTCGGACT"],
-    "five_prime_bases_to_trim":4,
-    "run_fastq_trimming":[1]
+    "job_uuid": "c2bf18c4-4916-41c9-99a8-969b7e83c3fb",
+    "thread_count":6
 }
