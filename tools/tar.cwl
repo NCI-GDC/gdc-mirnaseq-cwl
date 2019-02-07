@@ -43,4 +43,4 @@ outputs:
     outputBinding:
       glob: $(inputs.file)
 
-baseCommand: [tar]
+baseCommand: ["tar", "--dereference"]
