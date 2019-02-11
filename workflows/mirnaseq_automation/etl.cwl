@@ -261,16 +261,6 @@ steps:
         source: root_fasta_files/output
       - id: thread_count
         source: thread_count
-      - id: three_prime_adapter_to_trim
-        source: three_prime_adapter_to_trim 
-      - id: three_prime_bases_to_trim
-        source: three_prime_bases_to_trim
-      - id: minimum_read_length
-        source: minimum_read_length
-      - id: five_prime_adapter_to_trim
-        source: five_prime_adapter_to_trim
-      - id: five_prime_bases_to_trim
-        source: five_prime_bases_to_trim
     out:
       - id: output_bam
       - id: sqlite

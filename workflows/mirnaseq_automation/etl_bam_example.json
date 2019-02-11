@@ -19,7 +19,8 @@
           "LB": "MX0973",
           "PL": "ILLUMINA",
           "PU": "HTLMLBGXX.4.CTCAGA",
-          "SM": "TCGA-NF-A4X2-01A-11R-A28Z-13"
+          "SM": "TCGA-NF-A4X2-01A-11R-A28Z-13",
+          "run_fastq_trimming": []
         }
       ]
     }
