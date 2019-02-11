@@ -287,7 +287,7 @@ steps:
       - id: mirna_profiling_mirna_tcga_mirnas_quant
 
   - id: tar_mirna_profiling_alignment_stats
-    run: ../../tools/tar_dir.cwl
+    run: ../../tools/tar_dir_no_paths.cwl
     in:
       - id: INPUT
         source: transform/mirna_profiling_mirna_alignment_stats_features
@@ -297,7 +297,7 @@ steps:
       - id: OUTPUT
 
   - id: tar_mirna_profiling_graph_libs
-    run: ../../tools/tar_dir.cwl
+    run: ../../tools/tar_dir_no_paths.cwl
     in:
       - id: INPUT
         source: transform/mirna_profiling_mirna_graph_libs_jpgs
@@ -307,7 +307,7 @@ steps:
       - id: OUTPUT
 
   - id: tar_mirna_profiling
-    run: ../../tools/tar.cwl
+    run: ../../tools/tar_no_paths.cwl
     in:
       - id: INPUT
         source: [

@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/mirna-profiler:f47ef7f4de561344a9fc0dc7f752f486dfd19596bcc08f3d84ccdfa6e5deddaf
+    dockerPull: quay.io/ncigdc/mirna-profiler:cf8e9fe91f6f5df0d957af3496f454037b822ab0
   - class: InitialWorkDirRequirement
     listing:
       - entryname: $(inputs.sam.basename)
@@ -67,7 +67,7 @@ arguments:
     position: 1
     shellQuote: false
 
-  - valueFrom: "&& /usr/mirna/v0.2.7/code/annotation/annotate.pl"
+  - valueFrom: "&& /usr/mirna/code/annotation/annotate.pl"
     position: 3
     shellQuote: false
 

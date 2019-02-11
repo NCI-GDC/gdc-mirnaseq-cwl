@@ -6,6 +6,7 @@ requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/xz:b8f105f87b8d69a0414f8997bd5b586e502d9a1aa74d429314ec97cbddd81ff8
   - class: InlineJavascriptRequirement
+  - class: ShellCommandRequirement
 
 class: CommandLineTool
 
@@ -34,6 +35,12 @@ inputs:
     type: Directory
     inputBinding:
       position: 3
+      prefix: -C
+      valueFrom: |
+        ${
+          return self.path.replace(/\\/g,'/').replace(/\/[^\/]*$/, '') + " " + self.basename;
+        }
+      shellQuote: false
 
 outputs:
   - id: OUTPUT
@@ -41,4 +48,4 @@ outputs:
     outputBinding:
       glob: $(inputs.file)
 
-baseCommand: ["tar", "--dereference"]
+baseCommand: ["tar"]
