@@ -26,7 +26,7 @@
       - name: SM
         type: string
       - name: run_fastq_trimming
-        type: long[]
+        type: long[]?
       - name: three_prime_adapter_to_trim
         type: string[]?
       - name: three_prime_bases_to_trim

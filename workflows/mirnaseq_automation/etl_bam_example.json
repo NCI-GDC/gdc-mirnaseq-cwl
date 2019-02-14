@@ -1,5 +1,5 @@
 {
-  "bam_name": "TCGA-NF-A4X2-01A-11R-A28Z-13_gdc_realn.bam",
+  "bam_name": "TCGA-77-A5GH-01A-11H-A27R-13_mirna_gdc_realn.bam",
   "bioclient_config": {
     "class": "File",
     "location": "/home/ubuntu/bioclient.json"
@@ -9,17 +9,17 @@
   "readgroup_fastq_se_uuid_list": [],
   "readgroups_bam_uuid_list": [
     {
-      "bam_uuid": "73149145-4adc-416c-b66b-bcc804af16d6",
-      "bam_file_size": 173986400,
+      "bam_uuid": "ebd99236-9b00-4b25-980a-e4914f938f40", 
+      "bam_file_size": 271614689,
       "readgroup_meta_list": [
         {
           "CN": "BCGSC",
           "DT": "2018-07-24T00:00:00-0500",
-          "ID": "134403",
-          "LB": "MX0973",
+          "ID": "133898",
+          "LB": "MX0958",
           "PL": "ILLUMINA",
           "PU": "HTLMLBGXX.4.CTCAGA",
-          "SM": "TCGA-NF-A4X2-01A-11R-A28Z-13",
+          "SM": "TCGA-77-A5GH-01A-11H-A27R-13",
           "run_fastq_trimming": []
         }
       ]
@@ -42,5 +42,5 @@
   "reference_sa_gdc_id": "c9d4a9ec-751f-469a-b75c-0834f8685c19",
   "reference_sa_file_size": 1553788312,
   "thread_count": 4,
-  "job_uuid": "9888be52-e68a-4dd1-8bb0-dd3844673361"
+  "job_uuid": "de9ebfb2-26e9-4a9c-a6c3-0f45fd406c62"
 }
