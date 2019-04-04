@@ -82,13 +82,13 @@ outputs:
   - id: indexd_sqlite_uuid
     type: string
     outputSource: emit_sqlite_uuid/output
-  - id: indexd_tar_uuid
+  - id: indexd_mirna_profiling_tar_uuid
     type: string
     outputSource: emit_tar_uuid/output
-  - id: indexd_isoforms_uuid
+  - id: indexd_mirna_profiling_isoforms_quant_uuid
     type: string
     outputSource: emit_isoforms_uuid/output
-  - id: indexd_mirnas_uuid
+  - id: indexd_mirna_profiling_mirnas_quant_uuid
     type: string
     outputSource: emit_mirnas_uuid/output
 
