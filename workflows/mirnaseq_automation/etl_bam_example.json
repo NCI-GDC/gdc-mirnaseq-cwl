@@ -1,5 +1,5 @@
 {
-  "bam_name": "TCGA-77-A5GH-01A-11H-A27R-13_mirna_gdc_realn.bam",
+  "bam_name": "TEST-ALL-P2_mirna_gdc_realn.bam",
   "bioclient_config": {
     "class": "File",
     "location": "/home/ubuntu/bioclient.json"
@@ -9,18 +9,88 @@
   "readgroup_fastq_se_uuid_list": [],
   "readgroups_bam_uuid_list": [
     {
-      "bam_uuid": "ebd99236-9b00-4b25-980a-e4914f938f40", 
-      "bam_file_size": 271614689,
+      "bam_uuid": "92db438f-6650-40fe-ad73-03c4aedb0fce",
+      "bam_file_size": 43009433,
       "readgroup_meta_list": [
         {
-          "CN": "BCGSC",
-          "DT": "2018-07-24T00:00:00-0500",
-          "ID": "133898",
-          "LB": "MX0958",
-          "PL": "ILLUMINA",
-          "PU": "HTLMLBGXX.4.CTCAGA",
-          "SM": "TCGA-77-A5GH-01A-11H-A27R-13",
-          "run_fastq_trimming": []
+            "LB": "m18370", 
+            "CN": "BCCAGSC", 
+            "PU": "ffc1b53e-de9a-433d-a158-053bf14857bd", 
+            "SM": "TARGET-10-PARWRJ-09B-01R", 
+            "ID": "203504", 
+            "PL": "Illumina", 
+            "run_fastq_trimming": [], 
+            "DS": null, 
+            "DT": null, 
+            "FO": null, 
+            "KS": null, 
+            "PI": null, 
+            "PM": null, 
+            "three_prime_adapter_to_trim": null, 
+            "three_prime_bases_to_trim": null, 
+            "minimum_read_length": null, 
+            "five_prime_adapter_to_trim": null, 
+            "five_prime_bases_to_trim": null
+        }, 
+        {
+            "LB": "m18370", 
+            "CN": "BCCAGSC", 
+            "PU": "68e1a286-b49f-46b6-beb4-1d6ac264bcdd", 
+            "SM": "TARGET-10-PARWRJ-09B-01R", 
+            "ID": "203505", 
+            "PL": "Illumina", 
+            "run_fastq_trimming": [], 
+            "DS": null, 
+            "DT": null, 
+            "FO": null, 
+            "KS": null, 
+            "PI": null, 
+            "PM": null, 
+            "three_prime_adapter_to_trim": null, 
+            "three_prime_bases_to_trim": null, 
+            "minimum_read_length": null, 
+            "five_prime_adapter_to_trim": null, 
+            "five_prime_bases_to_trim": null
+        }, 
+        {
+            "LB": "m18370", 
+            "CN": "BCCAGSC", 
+            "PU": "727f53e1-d8c0-4e41-878a-f109771e4144", 
+            "SM": "TARGET-10-PARWRJ-09B-01R", 
+            "ID": "203506", 
+            "PL": "Illumina", 
+            "run_fastq_trimming": [], 
+            "DS": null, 
+            "DT": null, 
+            "FO": null, 
+            "KS": null, 
+            "PI": null, 
+            "PM": null, 
+            "three_prime_adapter_to_trim": null, 
+            "three_prime_bases_to_trim": null, 
+            "minimum_read_length": null, 
+            "five_prime_adapter_to_trim": null, 
+            "five_prime_bases_to_trim": null
+        }, 
+        {
+            "LB": "m18370", 
+            "CN": "BCCAGSC", 
+            "PU": "5875619d-8c65-4ee9-bb4b-d39c81568d5c", 
+            "SM": "TARGET-10-PARWRJ-09B-01R", 
+            "ID": "203507", 
+            "PL": "Illumina", 
+            "run_fastq_trimming": [], 
+            "DS": null, 
+            "DT": null, 
+            "FO": null, 
+            "KS": null, 
+            "PI": null, 
+            "PM": null, 
+            "three_prime_adapter_to_trim": null, 
+            "three_prime_bases_to_trim": null, 
+            "minimum_read_length": null, 
+            "five_prime_adapter_to_trim": null, 
+            "five_prime_bases_to_trim": null
         }
       ]
     }
@@ -42,5 +112,5 @@
   "reference_sa_gdc_id": "c9d4a9ec-751f-469a-b75c-0834f8685c19",
   "reference_sa_file_size": 1553788312,
   "thread_count": 4,
-  "job_uuid": "de9ebfb2-26e9-4a9c-a6c3-0f45fd406c62"
+  "job_uuid": "6a21c41f-e2e7-4932-b6be-8149352e5fa7"
 }
