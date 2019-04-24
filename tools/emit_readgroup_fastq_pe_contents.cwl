@@ -176,7 +176,7 @@ expression: |
         var forward_fastq = inputs.forward_fastq_list[i];
         var reverse_fastq = inputs.reverse_fastq_list[i];
         var fastq_rgname = fastq_to_rg_id(forward_fastq);
-        var bam_rgpu = get_bam_pu(fastq_rgname, inputs.bam_readgroup_contents);
+        var bam_rgpu = get_bam_pu(fastq_rgname);
         for (var j = 0; j < inputs.readgroup_meta_list.length; j++) {
           var readgroup_id = inputs.readgroup_meta_list[j]["ID"];
           if (bam_rgpu === readgroup_id) {
