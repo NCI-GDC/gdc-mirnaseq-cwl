@@ -198,15 +198,6 @@ steps:
     out:
       - id: output
 
-  - id: conditional_se_fastq_trimming
-    run: conditional_se_fastq_trimming.cwl
-    scatter: input 
-    in:
-      - id: input
-        source: merge_se_fastq_records/output
-    out:
-      - id: output
-
   - id: bwa_pe
     run: bwa_pe.cwl
     scatter: readgroup_fastq_pe
@@ -232,7 +223,7 @@ steps:
       - id: reference_sequence
         source: reference_sequence
       - id: readgroup_fastq_se
-        source: conditional_se_fastq_trimming/output
+        source: merge_se_fastq_records/output
       - id: thread_count
         source: thread_count
     out:

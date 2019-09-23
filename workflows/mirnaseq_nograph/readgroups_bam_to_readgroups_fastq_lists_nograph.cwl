@@ -51,7 +51,7 @@ steps:
       - id: output_fastq_s
 
   - id: bam_readgroup_to_json
-    run: ../../tools/bam_readgroup_to_json.cwl
+    run: ../../tools/bam_readgroup_to_json_no_error.cwl
     in:
       - id: INPUT
         source: readgroups_bam_file
