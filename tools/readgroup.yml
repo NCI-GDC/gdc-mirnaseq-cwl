@@ -2,7 +2,7 @@
     type: record
     fields:
       - name: CN
-        type: string
+        type: ["null", string]
       - name: DS
         type: ["null", string]
       - name: DT
@@ -14,7 +14,7 @@
       - name: KS
         type: ["null", string]
       - name: LB
-        type: string
+        type: ["null", string]
       - name: PI
         type: ["null", string]
       - name: PL

@@ -87,7 +87,7 @@ steps:
       - id: OUTPUT
 
   - id: bam_readgroup_to_json
-    run: ../../tools/bam_readgroup_to_json.cwl
+    run: ../../tools/bam_readgroup_to_json_no_error.cwl
     in:
       - id: INPUT
         source: bwa_se/OUTPUT
