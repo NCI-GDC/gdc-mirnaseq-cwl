@@ -81,8 +81,12 @@ arguments:
     position: 0
     shellQuote: false
 
-  - valueFrom: "&& sudo /usr/sbin/mysqld --defaults-file=/etc/mysql/my.cnf --user=mysql --daemonize"
+  - valueFrom: "&& sudo chown -R mysql:mysql /var/lib/mysql"
     position: 1
+    shellQuote: false
+
+  - valueFrom: "&& sudo /usr/sbin/mysqld --defaults-file=/etc/mysql/my.cnf --user=mysql --daemonize"
+    position: 2
     shellQuote: false
 
   - valueFrom: "&& /usr/mirna/code/custom_output/tcga/tcga.pl"
