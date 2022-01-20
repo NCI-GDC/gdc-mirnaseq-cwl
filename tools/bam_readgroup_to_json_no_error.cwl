@@ -3,7 +3,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/bam_readgroup_to_json:75fdf4511a17a035aeeb67fcce26a815b6b824e56ee033c6bbd2d2d99dd8c558
+    dockerPull: quay.io/ncigdc/bam_readgroup_to_json:1.0.0
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1
@@ -49,4 +49,4 @@ outputs:
     outputBinding:
       glob: "output.log"
 
-baseCommand: [/usr/local/bin/bam_readgroup_to_json]
+baseCommand: []
