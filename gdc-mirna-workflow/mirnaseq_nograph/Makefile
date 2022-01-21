@@ -1,5 +1,5 @@
-REPO = gdc-cellranger-workflow
-ENTRY_CWL = "gdc_cellranger_scrna_harmonization.cwl"
+REPO = gdc-mirna-workflow/mirnaseq_nograph
+ENTRY_CWL = "etl.cwl"
 
 VERSION := $(shell date -u +"%Y%m%dT%H%MZ")
 COMMIT_HASH:=$(shell git rev-parse HEAD)

@@ -1,4 +1,4 @@
-REPO = gdc-cellranger-cwl
+REPO = gdc-mirnaseq-cwl
 
 .PHONY: build build-* init init-*
 init: init-hooks init-secrets
