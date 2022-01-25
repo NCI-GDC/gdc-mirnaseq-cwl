@@ -1,6 +1,0 @@
-{
-    "inputBam": {
-        "class":"File",
-        "location":"/mnt/SCRATCH/Mirna/TestFiles/TCGA-EB-A44N-01A-11R-A25Z-13_mirna_gdc_realn.bam"
-    }
-}
