@@ -6,7 +6,7 @@ stages:
 - name: publish-release
   if: branch = master AND type != pull_request
 - name: publish-staging
-  if: branch != main AND type != pull_request
+  if: branch != master AND type != pull_request
 jobs:
   include:
   - stage: test
