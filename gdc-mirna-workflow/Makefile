@@ -1,4 +1,4 @@
-REPO = gdc-mirna-workflow/mirnaseq_nograph
+REPO = gdc-mirna-workflow
 ENTRY_CWL = "etl.cwl"
 
 VERSION := $(shell date -u +"%Y%m%dT%H%MZ")
