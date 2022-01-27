@@ -32,3 +32,8 @@ publish-release:
 .PHONY: validate
 validate:
 	@bash build.sh validate
+
+.PHONY: docker-*
+docker-login:
+	@echo
+	docker login -u=${QUAY_USERNAME} -p=${QUAY_PASSWORD} quay.io
