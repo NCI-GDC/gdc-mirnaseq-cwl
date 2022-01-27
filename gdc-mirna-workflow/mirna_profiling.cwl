@@ -81,7 +81,7 @@ steps:
       - id: OUTPUT
 
   - id: mirna_adapter_report_sorted
-    run: .../tools/sort.cwl
+    run: ../tools/sort.cwl
     in:
       - id: INPUT
         source: mirna_adapter_report/OUTPUT
