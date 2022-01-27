@@ -1,6 +1,6 @@
 services:
 - docker
-install: make build
+install: make docker-login build
 stages:
 - name: test
 - name: publish-release
