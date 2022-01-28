@@ -51,4 +51,4 @@ outputs:
     outputBinding:
       glob: $(inputs.job_uuid + ".db")
 
-baseCommand: []
+baseCommand: [--metric_name, ValidateSamFile]
