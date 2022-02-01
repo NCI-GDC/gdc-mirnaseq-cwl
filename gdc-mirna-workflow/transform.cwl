@@ -10,7 +10,7 @@ requirements:
   - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.yml
+      - $import: ../tools/readgroup.yml
   - class: StepInputExpressionRequirement
   - class: SubworkflowFeatureRequirement
 
@@ -22,15 +22,15 @@ inputs:
   - id: readgroup_fastq_pe_file_list
     type:
       type: array
-      items: ../../tools/readgroup.yml#readgroup_fastq_pe_file
+      items: ../tools/readgroup.yml#readgroup_fastq_pe_file
   - id: readgroup_fastq_se_file_list
     type:
       type: array
-      items: ../../tools/readgroup.yml#readgroup_fastq_se_file
+      items: ../tools/readgroup.yml#readgroup_fastq_se_file
   - id: readgroups_bam_file_list
     type:
       type: array
-      items: ../../tools/readgroup.yml#readgroups_bam_file
+      items: ../tools/readgroup.yml#readgroups_bam_file
   - id: reference_sequence
     type: File
     secondaryFiles:
@@ -111,7 +111,7 @@ steps:
       - id: sqlite
 
   - id: merge_sqlite_fastq_clean_pe
-    run: ../../tools/merge_sqlite.cwl
+    run: ../tools/merge_sqlite.cwl
     in:
       - id: source_sqlite
         source: fastq_clean_pe/sqlite
@@ -122,7 +122,7 @@ steps:
       - id: log
 
   - id: merge_sqlite_fastq_clean_se
-    run: ../../tools/merge_sqlite.cwl
+    run: ../tools/merge_sqlite.cwl
     in:
       - id: source_sqlite
         source: fastq_clean_se/sqlite
@@ -145,7 +145,7 @@ steps:
       - id: o2_file_list
 
   - id: merge_bam_pe_fastq_records
-    run: ../../tools/merge_pe_fastq_records.cwl
+    run: ../tools/merge_pe_fastq_records.cwl
     in:
       - id: input
         source: readgroups_bam_to_readgroups_fastq_lists/pe_file_list
@@ -153,7 +153,7 @@ steps:
       - id: output
 
   - id: merge_pe_fastq_records
-    run: ../../tools/merge_pe_fastq_records.cwl
+    run: ../tools/merge_pe_fastq_records.cwl
     in:
       - id: input
         source: [
@@ -164,7 +164,7 @@ steps:
       - id: output
 
   - id: merge_bam_se_fastq_records
-    run: ../../tools/merge_se_fastq_records.cwl
+    run: ../tools/merge_se_fastq_records.cwl
     in:
       - id: input
         source: readgroups_bam_to_readgroups_fastq_lists/se_file_list
@@ -172,7 +172,7 @@ steps:
       - id: output
 
   - id: merge_se_fastq_records
-    run: ../../tools/merge_se_fastq_records.cwl
+    run: ../tools/merge_se_fastq_records.cwl
     in:
       - id: input
         source: [
@@ -183,7 +183,7 @@ steps:
       - id: output
 
   - id: merge_o1_fastq_records
-    run: ../../tools/merge_se_fastq_records.cwl
+    run: ../tools/merge_se_fastq_records.cwl
     in:
       - id: input
         source: readgroups_bam_to_readgroups_fastq_lists/o1_file_list
@@ -191,7 +191,7 @@ steps:
       - id: output
 
   - id: merge_o2_fastq_records
-    run: ../../tools/merge_se_fastq_records.cwl
+    run: ../tools/merge_se_fastq_records.cwl
     in:
       - id: input
         source: readgroups_bam_to_readgroups_fastq_lists/o2_file_list
@@ -263,7 +263,7 @@ steps:
       - id: sqlite
 
   - id: merge_sqlite_bwa_pe
-    run: ../../tools/merge_sqlite.cwl
+    run: ../tools/merge_sqlite.cwl
     in:
       - id: source_sqlite
         source: bwa_pe/sqlite
@@ -274,7 +274,7 @@ steps:
       - id: log
 
   - id: merge_sqlite_bwa_se
-    run: ../../tools/merge_sqlite.cwl
+    run: ../tools/merge_sqlite.cwl
     in:
       - id: source_sqlite
         source: bwa_se/sqlite
@@ -285,7 +285,7 @@ steps:
       - id: log
 
   - id: picard_mergesamfiles
-    run: ../../tools/picard_mergesamfiles_aoa.cwl
+    run: ../tools/picard_mergesamfiles_aoa.cwl
     in:
       - id: INPUT
         source: [
@@ -300,7 +300,7 @@ steps:
       - id: MERGED_OUTPUT
 
   - id: bam_reheader
-    run: ../../tools/bam_reheader.cwl
+    run: ../tools/bam_reheader.cwl
     in:
       - id: input
         source: picard_mergesamfiles/MERGED_OUTPUT
@@ -319,7 +319,7 @@ steps:
       - id: sqlite
 
   - id: picard_validatesamfile
-    run: ../../tools/picard_validatesamfile.cwl
+    run: ../tools/picard_validatesamfile.cwl
     in:
       - id: INPUT
         source: bam_index/output
@@ -330,7 +330,7 @@ steps:
 
   #need eof and dup QNAME detection
   - id: picard_validatesamfile_to_sqlite
-    run: ../../tools/picard_validatesamfile_to_sqlite.cwl
+    run: ../tools/picard_validatesamfile_to_sqlite.cwl
     in:
       - id: bam
         source: bam_index/output
@@ -404,7 +404,7 @@ steps:
       - id: sqlite
 
   - id: merge_all_sqlite
-    run: ../../tools/merge_sqlite.cwl
+    run: ../tools/merge_sqlite.cwl
     in:
       - id: source_sqlite
         source: [

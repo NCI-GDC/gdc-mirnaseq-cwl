@@ -4,7 +4,7 @@
     "class": "File",
     "location": "/home/ubuntu/bioclient.json"
   },
-  "bioclient_load_bucket": "s3://ceph.service.consul/bio-automation-test",
+  "bioclient_load_bucket": "s3://gdc-harmonized.osdc.io/test-gdc-harmonized",
   "readgroup_fastq_pe_uuid_list": [],
   "readgroup_fastq_se_uuid_list": [],
   "readgroups_bam_uuid_list": [

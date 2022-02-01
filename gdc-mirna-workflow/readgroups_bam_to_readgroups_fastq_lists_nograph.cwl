@@ -7,38 +7,38 @@ class: Workflow
 requirements:
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.yml
+      - $import: ../tools/readgroup.yml
   - class: StepInputExpressionRequirement
 
 inputs:
   - id: readgroups_bam_file
-    type: ../../tools/readgroup.yml#readgroups_bam_file
+    type: ../tools/readgroup.yml#readgroups_bam_file
 
 outputs:
   - id: pe_file_list
     type:
       type: array
-      items: ../../tools/readgroup.yml#readgroup_fastq_pe_file
+      items: ../tools/readgroup.yml#readgroup_fastq_pe_file
     outputSource: readgroup_fastq_pe/output
   - id: se_file_list
     type:
       type: array
-      items: ../../tools/readgroup.yml#readgroup_fastq_se_file
+      items: ../tools/readgroup.yml#readgroup_fastq_se_file
     outputSource: readgroup_fastq_se/output
   - id: o1_file_list
     type:
       type: array
-      items: ../../tools/readgroup.yml#readgroup_fastq_se_file
+      items: ../tools/readgroup.yml#readgroup_fastq_se_file
     outputSource: readgroup_fastq_o1/output
   - id: o2_file_list
     type:
       type: array
-      items: ../../tools/readgroup.yml#readgroup_fastq_se_file
+      items: ../tools/readgroup.yml#readgroup_fastq_se_file
     outputSource: readgroup_fastq_o2/output
 
 steps:
   - id: biobambam_bamtofastq
-    run: ../../tools/biobambam2_bamtofastq.cwl
+    run: ../tools/biobambam2_bamtofastq.cwl
     in:
       - id: filename
         source: readgroups_bam_file
@@ -51,7 +51,7 @@ steps:
       - id: output_fastq_s
 
   - id: bam_readgroup_to_json
-    run: ../../tools/bam_readgroup_to_json_no_error.cwl
+    run: ../tools/bam_readgroup_to_json_no_error.cwl
     in:
       - id: INPUT
         source: readgroups_bam_file
@@ -62,7 +62,7 @@ steps:
       - id: OUTPUT
 
   - id: decider_readgroup_pe
-    run: ../../tools/decider_readgroup_expression.cwl
+    run: ../tools/decider_readgroup_expression.cwl
     in:
       - id: fastq
         source: biobambam_bamtofastq/output_fastq1
@@ -72,7 +72,7 @@ steps:
       - id: output
 
   - id: decider_readgroup_se
-    run: ../../tools/decider_readgroup_expression.cwl
+    run: ../tools/decider_readgroup_expression.cwl
     in:
       - id: fastq
         source: biobambam_bamtofastq/output_fastq_s
@@ -82,7 +82,7 @@ steps:
       - id: output
 
   - id: decider_readgroup_o1
-    run: ../../tools/decider_readgroup_expression.cwl
+    run: ../tools/decider_readgroup_expression.cwl
     in:
       - id: fastq
         source: biobambam_bamtofastq/output_fastq_o1
@@ -92,7 +92,7 @@ steps:
       - id: output
 
   - id: decider_readgroup_o2
-    run: ../../tools/decider_readgroup_expression.cwl
+    run: ../tools/decider_readgroup_expression.cwl
     in:
       - id: fastq
         source: biobambam_bamtofastq/output_fastq_o2

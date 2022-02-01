@@ -7,38 +7,38 @@ class: Workflow
 requirements:
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.yml
+      - $import: ../tools/readgroup.yml
   - class: StepInputExpressionRequirement
 
 inputs:
   - id: readgroups_bam_file
-    type: ../../tools/readgroup.yml#readgroups_bam_file
+    type: ../tools/readgroup.yml#readgroups_bam_file
 
 outputs:
   - id: pe_file_list
     type:
       type: array
-      items: ../../tools/readgroup.yml#readgroup_fastq_pe_file
+      items: ../tools/readgroup.yml#readgroup_fastq_pe_file
     outputSource: emit_readgroup_pe_contents/output
   - id: se_file_list
     type:
       type: array
-      items: ../../tools/readgroup.yml#readgroup_fastq_se_file
+      items: ../tools/readgroup.yml#readgroup_fastq_se_file
     outputSource: emit_readgroup_se_contents/output
   - id: o1_file_list
     type:
       type: array
-      items: ../../tools/readgroup.yml#readgroup_fastq_se_file
+      items: ../tools/readgroup.yml#readgroup_fastq_se_file
     outputSource: emit_readgroup_o1_contents/output
   - id: o2_file_list
     type:
       type: array
-      items: ../../tools/readgroup.yml#readgroup_fastq_se_file
+      items: ../tools/readgroup.yml#readgroup_fastq_se_file
     outputSource: emit_readgroup_o2_contents/output
 
 steps:
   - id: biobambam_bamtofastq
-    run: ../../tools/biobambam2_bamtofastq.cwl
+    run: ../tools/biobambam2_bamtofastq.cwl
     in:
       - id: filename
         source: readgroups_bam_file
@@ -51,7 +51,7 @@ steps:
       - id: output_fastq_s
 
   - id: bam_readgroup_to_contents
-    run: ../../tools/bam_readgroup_to_contents.cwl
+    run: ../tools/bam_readgroup_to_contents.cwl
     in:
       - id: INPUT
         source: readgroups_bam_file
@@ -62,7 +62,7 @@ steps:
       - id: OUTPUT
 
   - id: emit_readgroup_pe_contents
-    run: ../../tools/emit_readgroup_fastq_pe_contents.cwl
+    run: ../tools/emit_readgroup_fastq_pe_contents.cwl
     in:
       - id: bam_readgroup_contents
         source: bam_readgroup_to_contents/OUTPUT
@@ -77,7 +77,7 @@ steps:
       - id: output
 
   - id: emit_readgroup_se_contents
-    run: ../../tools/emit_readgroup_fastq_se_contents.cwl
+    run: ../tools/emit_readgroup_fastq_se_contents.cwl
     in:
       - id: bam_readgroup_contents
         source: bam_readgroup_to_contents/OUTPUT
@@ -90,7 +90,7 @@ steps:
       - id: output
 
   - id: emit_readgroup_o1_contents
-    run: ../../tools/emit_readgroup_fastq_se_contents.cwl
+    run: ../tools/emit_readgroup_fastq_se_contents.cwl
     in:
       - id: bam_readgroup_contents
         source: bam_readgroup_to_contents/OUTPUT
@@ -103,7 +103,7 @@ steps:
       - id: output
 
   - id: emit_readgroup_o2_contents
-    run: ../../tools/emit_readgroup_fastq_se_contents.cwl
+    run: ../tools/emit_readgroup_fastq_se_contents.cwl
     in:
       - id: bam_readgroup_contents
         source: bam_readgroup_to_contents/OUTPUT

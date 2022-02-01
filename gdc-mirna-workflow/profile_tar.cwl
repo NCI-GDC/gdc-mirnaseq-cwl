@@ -10,7 +10,7 @@ requirements:
   - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.yml
+      - $import: ../tools/readgroup.yml
   - class: StepInputExpressionRequirement
   - class: SubworkflowFeatureRequirement
 
@@ -53,7 +53,7 @@ steps:
       - id: mirna_tcga_mirnas_quant
 
   - id: tar_mirna_profiling_alignment_stats
-    run: ../../tools/tar_dir_no_paths.cwl
+    run: ../tools/tar_dir_no_paths.cwl
     in:
       - id: INPUT
         source: mirna_profiling/mirna_alignment_stats_features
@@ -63,7 +63,7 @@ steps:
       - id: OUTPUT
 
   - id: tar_mirna_profiling_graph_libs
-    run: ../../tools/tar_dir_no_paths.cwl
+    run: ../tools/tar_dir_no_paths.cwl
     in:
       - id: INPUT
         source: mirna_profiling/mirna_graph_libs_jpgs
@@ -73,7 +73,7 @@ steps:
       - id: OUTPUT
 
   - id: tar_mirna_profiling
-    run: ../../tools/tar_no_paths.cwl
+    run: ../tools/tar_no_paths.cwl
     in:
       - id: INPUT
         source: [

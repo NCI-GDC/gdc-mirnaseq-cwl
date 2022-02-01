@@ -7,7 +7,7 @@ class: Workflow
 requirements:
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.yml
+      - $import: ../tools/readgroup.yml
 
 inputs:
   - id: forward_fastq
@@ -23,12 +23,12 @@ inputs:
 
 outputs:
   - id: output
-    type: ../../tools/readgroup.yml#readgroup_fastq_pe_file
+    type: ../tools/readgroup.yml#readgroup_fastq_pe_file
     outputSource: emit_readgroup_fastq_pe/output
 
 steps:
   - id: emit_json_readgroup_meta
-    run: ../../tools/emit_json_readgroup_meta.cwl
+    run: ../tools/emit_json_readgroup_meta.cwl
     in:
       - id: input
         source: readgroup_json
@@ -36,7 +36,7 @@ steps:
       - id: output
 
   - id: emit_readgroup_fastq_pe
-    run: ../../tools/emit_readgroup_fastq_pe_file.cwl
+    run: ../tools/emit_readgroup_fastq_pe_file.cwl
     in:
       - id: forward_fastq
         source: forward_fastq

@@ -58,7 +58,7 @@ outputs:
 
 steps:
   - id: samtools_bamtosam
-    run:  ../../tools/samtools_view.cwl
+    run:  ../tools/samtools_view.cwl
     in:
       - id: INPUT
         source: bam
@@ -68,7 +68,7 @@ steps:
       - id: OUTPUT
 
   - id: mirna_adapter_report
-    run: ../../tools/awk.cwl
+    run: ../tools/awk.cwl
     in:
       - id: INPUT
         source: samtools_bamtosam/OUTPUT
@@ -81,7 +81,7 @@ steps:
       - id: OUTPUT
 
   - id: mirna_adapter_report_sorted
-    run: ../../tools/sort.cwl
+    run: ../tools/sort.cwl
     in:
       - id: INPUT
         source: mirna_adapter_report/OUTPUT
@@ -94,7 +94,7 @@ steps:
       - id: OUTPUT
 
   - id: mirna_annotate
-    run: ../../tools/mirna_annotate.cwl
+    run: ../tools/mirna_annotate.cwl
     in:
       - id: sam
         source: samtools_bamtosam/OUTPUT
@@ -110,7 +110,7 @@ steps:
       - id: output
 
   - id: mirna_alignment_stats
-    run: ../../tools/mirna_alignment_stats.cwl
+    run: ../tools/mirna_alignment_stats.cwl
     in:
       - id: adapter_report
         source: mirna_adapter_report_sorted/OUTPUT
@@ -130,7 +130,7 @@ steps:
       - id: softclip_taglengths_csv
 
   - id: mirna_tcga
-    run: ../../tools/mirna_tcga.cwl
+    run: ../tools/mirna_tcga.cwl
     in:
       - id: genome_version
         source: ucsc_database
@@ -153,7 +153,7 @@ steps:
       - id: mirnas_quant
 
   - id: mirna_expression_matrix
-    run: ../../tools/mirna_expression_matrix.cwl
+    run: ../tools/mirna_expression_matrix.cwl
     in:
       - id: mirbase_db
         source: mirbase_db
@@ -169,7 +169,7 @@ steps:
       - id: expn_matrix_norm_log_txt
 
   - id: mirna_expression_matrix_mimat
-    run: ../../tools/mirna_expression_matrix_mimat.cwl
+    run: ../tools/mirna_expression_matrix_mimat.cwl
     in:
       - id: mirbase_db
         source: mirbase_db
@@ -187,7 +187,7 @@ steps:
       - id: expn_matrix_mimat_norm_log_txt
 
   - id: mirna_graph_libs
-    run: ../../tools/mirna_graph_libs.cwl
+    run: ../tools/mirna_graph_libs.cwl
     in:
       - id: sam
         source: mirna_annotate/output

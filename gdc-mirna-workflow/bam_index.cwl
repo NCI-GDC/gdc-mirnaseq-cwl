@@ -23,7 +23,7 @@ outputs:
 
 steps:
   - id: samtools_index
-    run: ../../tools/samtools_index.cwl
+    run: ../tools/samtools_index.cwl
     in:
       - id: input
         source: bam
@@ -33,7 +33,7 @@ steps:
       - id: output
 
   - id: empty_sqlite
-    run: ../../tools/touch.cwl
+    run: ../tools/touch.cwl
     in:
       - id: input
         valueFrom: "empty.sqlite"
@@ -41,7 +41,7 @@ steps:
       - id: output
 
   - id: format_sqlite
-    run: ../../tools/emit_file_format.cwl
+    run: ../tools/emit_file_format.cwl
     in:
       - id: input
         source: empty_sqlite/output

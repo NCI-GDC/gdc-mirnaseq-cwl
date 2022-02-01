@@ -9,19 +9,19 @@ requirements:
   - class: StepInputExpressionRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.yml
+      - $import: ../tools/readgroup.yml
 
 class: Workflow
 
 inputs:
   - id: input
-    type: ../../tools/readgroup.yml#readgroup_fastq_se_file
+    type: ../tools/readgroup.yml#readgroup_fastq_se_file
   - id: job_uuid
     type: string
 
 outputs:
   - id: output
-    type: ../../tools/readgroup.yml#readgroup_fastq_se_file
+    type: ../tools/readgroup.yml#readgroup_fastq_se_file
     outputSource: emit_readgroup_fastq_se_file/output
   - id: sqlite
     type: File
@@ -29,7 +29,7 @@ outputs:
 
 steps:
   - id: fastq_cleaner_se
-    run: ../../tools/fastq_cleaner_se.cwl
+    run: ../tools/fastq_cleaner_se.cwl
     in:
       - id: fastq
         source: input
@@ -39,7 +39,7 @@ steps:
       - id: result_json
 
   - id: emit_readgroup_fastq_se_file
-    run: ../../tools/emit_readgroup_fastq_se_file.cwl
+    run: ../tools/emit_readgroup_fastq_se_file.cwl
     in:
       - id: fastq
         source: fastq_cleaner_se/cleaned_fastq
@@ -50,7 +50,7 @@ steps:
       - id: output
 
   - id: json_to_sqlite
-    run: ../../tools/json_to_sqlite.cwl
+    run: ../tools/json_to_sqlite.cwl
     in:
       - id: input_json
         source: fastq_cleaner_se/result_json

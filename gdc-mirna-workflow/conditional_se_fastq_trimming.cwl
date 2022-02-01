@@ -7,22 +7,22 @@ requirements:
   - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.yml
+      - $import: ../tools/readgroup.yml
 
 class: Workflow
 
 inputs:
   - id: input
-    type: '../../tools/readgroup.yml#readgroup_fastq_se_file'
+    type: '../tools/readgroup.yml#readgroup_fastq_se_file'
 
 outputs:
   - id: output
-    type: ../../tools/readgroup.yml#readgroup_fastq_se_file
+    type: ../tools/readgroup.yml#readgroup_fastq_se_file
     outputSource: emit_readgroup_fastq_se_file/output
 
 steps:
   - id: emit_readgroup_trimming
-    run: ../../tools/emit_readgroup_trimming.cwl
+    run: ../tools/emit_readgroup_trimming.cwl
     in:
       - id: input 
         source: input
@@ -31,7 +31,7 @@ steps:
       - id: output
    
   - id: fastq_adapter_trimmer_se
-    run: ../../tools/fastq_trimmer_se.cwl
+    run: ../tools/fastq_trimmer_se.cwl
     scatter: run_fastq_trimming
     in:
       - id: three_prime_adapter
@@ -55,7 +55,7 @@ steps:
       - id: output_fastq 
 
   - id: fastq_prime_trimmer_se
-    run: ../../tools/fastq_trimmer_se.cwl
+    run: ../tools/fastq_trimmer_se.cwl
     scatter: input_fastq 
     in:
       - id: three_prime_bases_removed
@@ -76,7 +76,7 @@ steps:
       - id: output_fastq
 
   - id: decide_fastq
-    run: ../../tools/decider_conditional_fastqs.cwl
+    run: ../tools/decider_conditional_fastqs.cwl
     in:
       - id: conditional_fastq1
         source: input
@@ -87,7 +87,7 @@ steps:
       - id: output
 
   - id: emit_readgroup_fastq_se_file
-    run: ../../tools/emit_readgroup_fastq_se_file.cwl
+    run: ../tools/emit_readgroup_fastq_se_file.cwl
     in:
       - id: fastq
         source: decide_fastq/output 

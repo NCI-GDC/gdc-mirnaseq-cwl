@@ -9,24 +9,24 @@ requirements:
   - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.yml
+      - $import: ../tools/readgroup.yml
   - class: StepInputExpressionRequirement
   - class: SubworkflowFeatureRequirement
 
 inputs:
   - id: readgroup_fastq_se_uuid
-    type: ../../tools/readgroup.yml#readgroup_fastq_se_uuid
+    type: ../tools/readgroup.yml#readgroup_fastq_se_uuid
   - id: bioclient_config
     type: File
 
 outputs:
   - id: output
-    type: ../../tools/readgroup.yml#readgroup_fastq_se_file
+    type: ../tools/readgroup.yml#readgroup_fastq_se_file
     outputSource: emit_readgroup_fastq_se_file/output
 
 steps:
   - id: extract_fastq
-    run: ../../tools/bio_client_download.cwl
+    run: ../tools/bio_client_download.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -40,7 +40,7 @@ steps:
       - id: output
       
   - id: emit_readgroup_fastq_se_file
-    run: ../../tools/emit_readgroup_fastq_se_file.cwl
+    run: ../tools/emit_readgroup_fastq_se_file.cwl
     in:
       - id: fastq
         source: extract_fastq/output

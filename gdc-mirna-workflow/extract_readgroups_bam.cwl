@@ -9,7 +9,7 @@ requirements:
   - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.yml
+      - $import: ../tools/readgroup.yml
   - class: StepInputExpressionRequirement
   - class: SubworkflowFeatureRequirement
 
@@ -17,16 +17,16 @@ inputs:
   - id: bioclient_config
     type: File
   - id: readgroups_bam_uuid
-    type: ../../tools/readgroup.yml#readgroups_bam_uuid
+    type: ../tools/readgroup.yml#readgroups_bam_uuid
 
 outputs:
   - id: output
-    type: ../../tools/readgroup.yml#readgroups_bam_file
+    type: ../tools/readgroup.yml#readgroups_bam_file
     outputSource: emit_readgroups_bam_file/output
 
 steps:
   - id: extract_bam
-    run: ../../tools/bio_client_download.cwl
+    run: ../tools/bio_client_download.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -40,7 +40,7 @@ steps:
       - id: output
 
   - id: emit_readgroups_bam_file
-    run: ../../tools/emit_readgroups_bam_file.cwl
+    run: ../tools/emit_readgroups_bam_file.cwl
     in:
       - id: bam
         source: extract_bam/output

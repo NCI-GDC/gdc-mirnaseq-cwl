@@ -10,7 +10,7 @@ requirements:
   - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.yml
+      - $import: ../tools/readgroup.yml
   - class: StepInputExpressionRequirement
   - class: SubworkflowFeatureRequirement
 
@@ -26,15 +26,15 @@ inputs:
   - id: readgroup_fastq_pe_uuid_list
     type:
       type: array
-      items:  ../../tools/readgroup.yml#readgroup_fastq_pe_uuid
+      items:  ../tools/readgroup.yml#readgroup_fastq_pe_uuid
   - id: readgroup_fastq_se_uuid_list
     type:
       type: array
-      items:  ../../tools/readgroup.yml#readgroup_fastq_se_uuid
+      items:  ../tools/readgroup.yml#readgroup_fastq_se_uuid
   - id: readgroups_bam_uuid_list
     type:
       type: array
-      items: ../../tools/readgroup.yml#readgroups_bam_uuid
+      items: ../tools/readgroup.yml#readgroups_bam_uuid
   - id: start_token
     type: ["null", File]
   - id: reference_amb_gdc_id
@@ -127,7 +127,7 @@ steps:
       - id: output
 
   - id: extract_reference_amb
-    run: ../../tools/bio_client_download.cwl
+    run: ../tools/bio_client_download.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -139,7 +139,7 @@ steps:
       - id: output
 
   - id: extract_reference_ann
-    run: ../../tools/bio_client_download.cwl
+    run: ../tools/bio_client_download.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -151,7 +151,7 @@ steps:
       - id: output
 
   - id: extract_reference_bwt
-    run: ../../tools/bio_client_download.cwl
+    run: ../tools/bio_client_download.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -163,7 +163,7 @@ steps:
       - id: output
 
   - id: extract_reference_dict
-    run: ../../tools/bio_client_download.cwl
+    run: ../tools/bio_client_download.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -175,7 +175,7 @@ steps:
       - id: output
 
   - id: extract_reference_fa
-    run: ../../tools/bio_client_download.cwl
+    run: ../tools/bio_client_download.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -187,7 +187,7 @@ steps:
       - id: output
 
   - id: extract_reference_fai
-    run: ../../tools/bio_client_download.cwl
+    run: ../tools/bio_client_download.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -199,7 +199,7 @@ steps:
       - id: output
 
   - id: extract_reference_pac
-    run: ../../tools/bio_client_download.cwl
+    run: ../tools/bio_client_download.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -211,7 +211,7 @@ steps:
       - id: output
 
   - id: extract_reference_sa
-    run: ../../tools/bio_client_download.cwl
+    run: ../tools/bio_client_download.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -223,7 +223,7 @@ steps:
       - id: output
 
   - id: root_fasta_files
-    run: ../../tools/root_fasta_dnaseq.cwl
+    run: ../tools/root_fasta_dnaseq.cwl
     in:
       - id: fasta
         source: extract_reference_fa/output
@@ -277,7 +277,7 @@ steps:
       - id: mirna_profiling_mirna_tcga_mirnas_quant
 
   - id: tar_mirna_profiling_alignment_stats
-    run: ../../tools/tar_dir_no_paths.cwl
+    run: ../tools/tar_dir_no_paths.cwl
     in:
       - id: INPUT
         source: transform/mirna_profiling_mirna_alignment_stats_features
@@ -287,7 +287,7 @@ steps:
       - id: OUTPUT
 
   - id: tar_mirna_profiling_graph_libs
-    run: ../../tools/tar_dir_no_paths.cwl
+    run: ../tools/tar_dir_no_paths.cwl
     in:
       - id: INPUT
         source: transform/mirna_profiling_mirna_graph_libs_jpgs
@@ -297,7 +297,7 @@ steps:
       - id: OUTPUT
 
   - id: tar_mirna_profiling
-    run: ../../tools/tar_no_paths.cwl
+    run: ../tools/tar_no_paths.cwl
     in:
       - id: INPUT
         source: [
@@ -320,7 +320,7 @@ steps:
       - id: OUTPUT
 
   - id: rename_isoforms_quant
-    run: ../../tools/rename.cwl
+    run: ../tools/rename.cwl
     in:
       - id: INPUT
         source: transform/mirna_profiling_mirna_tcga_isoforms_quant
@@ -331,7 +331,7 @@ steps:
       - id: OUTPUT
 
   - id: rename_mirnas_quant
-    run: ../../tools/rename.cwl
+    run: ../tools/rename.cwl
     in:
       - id: INPUT
         source: transform/mirna_profiling_mirna_tcga_mirnas_quant
@@ -342,7 +342,7 @@ steps:
       - id: OUTPUT
 
   - id: load_bam
-    run: ../../tools/bio_client_upload_pull_uuid.cwl
+    run: ../tools/bio_client_upload_pull_uuid.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -359,7 +359,7 @@ steps:
       - id: output
 
   - id: load_bai
-    run: ../../tools/bio_client_upload_pull_uuid.cwl
+    run: ../tools/bio_client_upload_pull_uuid.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -377,7 +377,7 @@ steps:
       - id: output
 
   - id: load_sqlite
-    run: ../../tools/bio_client_upload_pull_uuid.cwl
+    run: ../tools/bio_client_upload_pull_uuid.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -394,7 +394,7 @@ steps:
       - id: output
 
   - id: load_tar_mirna_profiling
-    run: ../../tools/bio_client_upload_pull_uuid.cwl
+    run: ../tools/bio_client_upload_pull_uuid.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -411,7 +411,7 @@ steps:
       - id: output
 
   - id: load_mirna_profiling_isoforms_quant
-    run: ../../tools/bio_client_upload_pull_uuid.cwl
+    run: ../tools/bio_client_upload_pull_uuid.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -428,7 +428,7 @@ steps:
       - id: output
 
   - id: load_mirna_profiling_mirnas_quant
-    run: ../../tools/bio_client_upload_pull_uuid.cwl
+    run: ../tools/bio_client_upload_pull_uuid.cwl
     in:
       - id: config-file
         source: bioclient_config
@@ -445,7 +445,7 @@ steps:
       - id: output
 
   - id: emit_bam_uuid
-    run: ../../tools/emit_json_value.cwl
+    run: ../tools/emit_json_value.cwl
     in:
       - id: input
         source: load_bam/output
@@ -455,7 +455,7 @@ steps:
       - id: output
 
   - id: emit_bai_uuid
-    run: ../../tools/emit_json_value.cwl
+    run: ../tools/emit_json_value.cwl
     in:
       - id: input
         source: load_bai/output
@@ -465,7 +465,7 @@ steps:
       - id: output
 
   - id: emit_sqlite_uuid
-    run: ../../tools/emit_json_value.cwl
+    run: ../tools/emit_json_value.cwl
     in:
       - id: input
         source: load_sqlite/output
@@ -475,7 +475,7 @@ steps:
       - id: output
 
   - id: emit_tar_uuid
-    run: ../../tools/emit_json_value.cwl
+    run: ../tools/emit_json_value.cwl
     in:
       - id: input
         source: load_tar_mirna_profiling/output
@@ -485,7 +485,7 @@ steps:
       - id: output
 
   - id: emit_isoforms_uuid
-    run: ../../tools/emit_json_value.cwl
+    run: ../tools/emit_json_value.cwl
     in:
       - id: input
         source: load_mirna_profiling_isoforms_quant/output
@@ -495,7 +495,7 @@ steps:
       - id: output
 
   - id: emit_mirnas_uuid
-    run: ../../tools/emit_json_value.cwl
+    run: ../tools/emit_json_value.cwl
     in:
       - id: input
         source: load_mirna_profiling_mirnas_quant/output
