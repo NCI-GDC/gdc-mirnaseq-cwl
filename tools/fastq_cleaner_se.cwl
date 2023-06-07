@@ -45,3 +45,8 @@ outputs:
       glob: "result.json"
 
 baseCommand: [/usr/local/bin/fastq_cleaner]
+
+$namespaces:
+  edam: http://edamontology.org/
+$schemas:
+  - http://edamontology.org/EDAM_1.18.owl

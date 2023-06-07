@@ -83,3 +83,8 @@ outputs:
       glob: $(inputs.sam.nameroot)_features/softclip_taglengths.csv
 
 baseCommand: [/usr/mirna/code/library_stats/alignment_stats.pl]
+
+$namespaces:
+  edam: http://edamontology.org/
+$schemas:
+  - http://edamontology.org/EDAM_1.18.owl
