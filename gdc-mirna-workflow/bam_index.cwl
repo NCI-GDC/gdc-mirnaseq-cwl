@@ -49,3 +49,8 @@ steps:
         valueFrom: "edam:format_2572"
     out:
       - id: output
+
+$namespaces:
+  edam: http://edamontology.org/
+$schemas:
+  - http://edamontology.org/EDAM_1.18.owl

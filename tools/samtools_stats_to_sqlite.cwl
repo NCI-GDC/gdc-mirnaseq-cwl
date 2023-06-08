@@ -52,3 +52,9 @@ outputs:
       glob: $(inputs.job_uuid + ".db")
 
 baseCommand: [/usr/local/bin/samtools_metrics_sqlite, --metric_name, stats]
+
+$namespaces:
+  edam: http://edamontology.org/
+$schemas:
+  - http://edamontology.org/EDAM_1.18.owl
+

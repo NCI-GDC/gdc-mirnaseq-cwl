@@ -89,3 +89,8 @@ arguments:
 successCodes: [0, 2, 3]
 
 baseCommand: [java, -jar, /usr/local/bin/picard.jar, ValidateSamFile]
+
+$namespaces:
+  edam: http://edamontology.org/
+$schemas:
+  - http://edamontology.org/EDAM_1.18.owl

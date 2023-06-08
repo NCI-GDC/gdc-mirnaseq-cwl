@@ -193,3 +193,8 @@ expression: |
       }
       return {'output': output_array};
     }
+
+$namespaces:
+  edam: http://edamontology.org/
+$schemas:
+  - http://edamontology.org/EDAM_1.18.owl

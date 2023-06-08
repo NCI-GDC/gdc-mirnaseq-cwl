@@ -80,3 +80,8 @@ arguments:
   #   shellQuote: false
 
 baseCommand: []
+
+$namespaces:
+  edam: http://edamontology.org/
+$schemas:
+  - http://edamontology.org/EDAM_1.18.owl
