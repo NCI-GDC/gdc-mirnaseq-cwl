@@ -35,7 +35,6 @@ inputs:
 
 outputs:
   - id: sqlite
-    format: "edam:format_3621"
     type: File
     outputBinding:
       glob: $(inputs.job_uuid).db
@@ -47,7 +46,3 @@ outputs:
 
 baseCommand: [json_to_sqlite]
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

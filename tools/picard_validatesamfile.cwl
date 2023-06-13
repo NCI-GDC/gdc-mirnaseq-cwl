@@ -35,7 +35,6 @@ inputs:
 
   - id: INPUT
     type: File
-    format: "edam:format_2572"
     inputBinding:
       prefix: INPUT=
       separate: false
@@ -90,7 +89,3 @@ successCodes: [0, 2, 3]
 
 baseCommand: [java, -jar, /usr/local/bin/picard.jar, ValidateSamFile]
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

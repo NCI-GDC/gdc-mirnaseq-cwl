@@ -34,7 +34,6 @@ inputs:
       separate: false
 
   - id: filename
-    format: "edam:format_2572"
     type: File
     inputBinding:
       prefix: filename=
@@ -126,7 +125,6 @@ inputs:
 
 outputs:
   - id: output_fastq1
-    format: "edam:format_2182"
     type:
       type: array
       items: File
@@ -136,7 +134,6 @@ outputs:
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
   - id: output_fastq2
-    format: "edam:format_2182"
     type:
       type: array
       items: File
@@ -146,7 +143,6 @@ outputs:
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
   - id: output_fastq_o1
-    format: "edam:format_2182"
     type:
       type: array
       items: File
@@ -156,7 +152,6 @@ outputs:
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
   - id: output_fastq_o2
-    format: "edam:format_2182"
     type:
       type: array
       items: File
@@ -166,7 +161,6 @@ outputs:
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
   - id: output_fastq_s
-    format: "edam:format_2182"
     type:
       type: array
       items: File
@@ -177,7 +171,3 @@ outputs:
 
 baseCommand: [/usr/local/bin/bamtofastq]
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

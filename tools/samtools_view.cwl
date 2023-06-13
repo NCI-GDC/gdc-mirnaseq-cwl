@@ -11,7 +11,6 @@ class: CommandLineTool
 
 inputs:
   - id: INPUT
-    format: "edam:format_2572"
     type: File
     inputBinding:
       position: 0
@@ -36,7 +35,6 @@ inputs:
 
 outputs:
   - id: OUTPUT
-    format: "edam:format_2573"
     type: File
     outputBinding:
       glob: |
@@ -52,9 +50,4 @@ arguments:
     prefix: -o
 
 baseCommand: [/usr/local/bin/samtools, view]
-
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl
 

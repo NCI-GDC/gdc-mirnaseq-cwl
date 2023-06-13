@@ -12,13 +12,11 @@ class: ExpressionTool
 
 inputs:
   - id: forward_fastq_list
-    format: "edam:format_2182"
     type:
       type: array
       items: File
 
   - id: reverse_fastq_list
-    format: "edam:format_2182"
     type:
       type: array
       items: File
@@ -117,15 +115,9 @@ expression: |
       var output = {"forward_fastq": forward_fastq,
                     "reverse_fastq": reverse_fastq,
                     "readgroup_meta": readgroup_meta};
-      output.forward_fastq.format = "edam:format_2182";
-      output.reverse_fastq.format = "edam:format_2182";
       output_array.push(output);
     }
     
     return {'output': output_array}
   }
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

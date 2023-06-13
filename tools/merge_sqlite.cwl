@@ -48,7 +48,6 @@ class: CommandLineTool
 
 inputs:
   - id: source_sqlite
-    format: "edam:format_3621"
     type:
       type: array
       items: File
@@ -62,7 +61,6 @@ inputs:
 
 outputs:
   - id: destination_sqlite
-    format: "edam:format_3621"
     type: File
     outputBinding:
       glob: $(inputs.job_uuid + ".db")
@@ -74,7 +72,3 @@ outputs:
 
 baseCommand: [/usr/local/bin/merge_sqlite]
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

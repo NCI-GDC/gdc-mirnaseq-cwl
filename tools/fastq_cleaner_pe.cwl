@@ -21,13 +21,11 @@ class: CommandLineTool
 inputs:
   - id: fastq1
     type: File
-    format: "edam:format_2182"
     inputBinding:
       prefix: --fastq
 
   - id: fastq2
     type: File
-    format: "edam:format_2182"
     inputBinding:
       prefix: --fastq2
 
@@ -40,25 +38,18 @@ inputs:
 outputs:
   - id: cleaned_fastq1
     type: File
-    format: "edam:format_2182"
     outputBinding:
       glob: $(inputs.fastq1.basename)
 
   - id: cleaned_fastq2
     type: File
-    format: "edam:format_2182"
     outputBinding:
       glob: $(inputs.fastq2.basename)
 
   - id: result_json
     type: File
-    format: "edam:format_3464"
     outputBinding:
       glob: "result.json"
 
 baseCommand: [/usr/local/bin/fastq_cleaner]
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl
