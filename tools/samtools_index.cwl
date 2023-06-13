@@ -25,7 +25,6 @@ class: CommandLineTool
 inputs:
   - id: input
     type: File
-    format: "edam:format_2572"
 
   - id: thread_count
     type: long
@@ -36,7 +35,6 @@ inputs:
 outputs:
   - id: output
     type: File
-    format: "edam:format_2572"
     outputBinding:
       glob: $(inputs.input.basename)
     secondaryFiles:
@@ -50,9 +48,3 @@ arguments:
     position: 2
 
 baseCommand: [/usr/local/bin/samtools, index]
-
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl
-

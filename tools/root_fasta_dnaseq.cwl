@@ -65,7 +65,6 @@ inputs:
 outputs:
   - id: output
     type: File
-    format: "edam:format_1929"
     outputBinding:
       glob: $(inputs.fasta.basename)
     secondaryFiles:
@@ -79,7 +78,3 @@ outputs:
 
 baseCommand: ['true']
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

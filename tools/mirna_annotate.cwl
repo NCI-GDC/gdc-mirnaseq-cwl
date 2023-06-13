@@ -16,7 +16,6 @@ class: CommandLineTool
 
 inputs:
   - id: sam
-    format: "edam:format_2573"
     type: File
     
   - id: mirbase
@@ -53,7 +52,6 @@ inputs:
 
 outputs:
   - id: output
-    format: "edam:format_2573"
     type: File
     outputBinding:
       glob: $(inputs.sam.basename)
@@ -81,7 +79,3 @@ arguments:
 
 baseCommand: []
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

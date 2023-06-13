@@ -9,20 +9,17 @@ class: ExpressionTool
 
 inputs:
   - id: fastq
-    format: "edam:format_2182"
     type:
       type: array
       items: File
 
   - id: readgroup_json
-    format: "edam:format_3464"
     type:
       type: array
       items: File
 
 outputs:
   - id: output
-    format: "edam:format_3464"
     type:
       type: array
       items: File
@@ -95,7 +92,3 @@ expression: |
       return {'output': readgroup_sorted}
     }
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl
