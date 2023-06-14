@@ -308,15 +308,14 @@ steps:
       - id: output
 
   - id: bam_index
-    run: bam_index.cwl
+    run: ../tools/samtools_index.cwl
     in:
-      - id: bam
+      - id: input
         source: bam_reheader/output
       - id: thread_count
         source: thread_count
     out:
       - id: output
-      - id: sqlite
 
   - id: picard_validatesamfile
     run: ../tools/picard_validatesamfile.cwl
@@ -412,7 +411,6 @@ steps:
           merge_sqlite_fastq_clean_se/destination_sqlite,
           merge_sqlite_bwa_pe/destination_sqlite,
           merge_sqlite_bwa_se/destination_sqlite,
-          bam_index/sqlite,
           metrics/sqlite,
           integrity/sqlite
           ]
