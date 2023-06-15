@@ -21,7 +21,6 @@ class: CommandLineTool
 inputs:
   - id: INPUT
     type: File
-    format: "edam:format_2572"
     inputBinding:
       prefix: --bam_path
 
@@ -33,7 +32,6 @@ inputs:
 
 outputs:
   - id: OUTPUT
-    format: "edam:format_3464"
     type:
       type: array
       items: File
@@ -49,7 +47,3 @@ outputs:
 
 baseCommand: []
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

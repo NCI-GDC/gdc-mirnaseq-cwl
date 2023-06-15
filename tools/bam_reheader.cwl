@@ -21,14 +21,12 @@ class: CommandLineTool
 inputs:
   - id: input
     type: File
-    format: "edam:format_2572"
     inputBinding:
       prefix: --bam_path
 
 outputs:
   - id: output
     type: File
-    format: "edam:format_2572"
     outputBinding:
       glob: $(inputs.input.basename)
 
@@ -39,7 +37,3 @@ outputs:
 
 baseCommand: [/usr/local/bin/bam_reheader]
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

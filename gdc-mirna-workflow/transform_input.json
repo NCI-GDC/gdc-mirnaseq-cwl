@@ -25,7 +25,6 @@
     "readgroups_bam_file_list":[],
     "reference_sequence": {
         "class": "File",
-        "format": "edam:format_1929",
         "location": "/mnt/SCRATCH/dan-test/hg38-ref/GRCh38.d1.vd1.fa",
         "secondaryFiles": [
             {"class": "File",

@@ -37,14 +37,9 @@ outputs:
 
   - id: OUTPUT
     type: File
-    format: "edam:format_3621"
     outputBinding:
       glob: $(inputs.INPUT.nameroot + ".db")
 
           
 baseCommand: [/usr/local/bin/fastqc_db]
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

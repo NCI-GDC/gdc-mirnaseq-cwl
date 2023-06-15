@@ -25,15 +25,12 @@ class: CommandLineTool
 inputs:
   - id: fastq1
     type: File
-    format: "edam:format_2182"
 
   - id: fastq2
     type: File
-    format: "edam:format_2182"
 
   - id: fasta
     type: File
-    format: "edam:format_1929"
     secondaryFiles:
       - .amb
       - .ann
@@ -46,7 +43,6 @@ inputs:
 
   - id: fastqc_json_path
     type: File
-    format: "edam:format_3464"
     inputBinding:
       loadContents: true
       valueFrom: $(null)
@@ -57,7 +53,6 @@ inputs:
 outputs:
   - id: OUTPUT
     type: File
-    format: "edam:format_2572"
     outputBinding:
       glob: $(inputs.readgroup_meta['ID'] + ".bam")
 
@@ -131,7 +126,3 @@ arguments:
 
 baseCommand: [bash, -c]
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

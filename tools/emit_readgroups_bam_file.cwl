@@ -27,11 +27,6 @@ expression: |
   ${
     var output = { "bam": inputs.bam,
                    "readgroup_meta_list": inputs.readgroup_meta_list};
-    output.bam.format = "edam:format_2572";
     return {'output': output}
   }
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

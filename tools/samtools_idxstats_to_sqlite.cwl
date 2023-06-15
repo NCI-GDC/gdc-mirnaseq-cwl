@@ -46,14 +46,9 @@ outputs:
       glob: $(inputs.job_uuid+"_samtools_idxstats.log")
 
   - id: sqlite
-    format: "edam:format_3621"
     type: File
     outputBinding:
       glob: $(inputs.job_uuid + ".db")
 
 baseCommand: [/usr/local/bin/samtools_metrics_sqlite, --metric_name, idxstats]
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

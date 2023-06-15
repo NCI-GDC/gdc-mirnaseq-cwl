@@ -70,7 +70,6 @@ inputs:
       separate: false
 
   - id: INPUT
-    format: "edam:format_2572"
     type:
       type: array
       items:
@@ -126,7 +125,6 @@ inputs:
 
 outputs:
   - id: MERGED_OUTPUT
-    format: "edam:format_2572"
     type: File
     outputBinding:
       glob: $(inputs.OUTPUT)
@@ -157,7 +155,3 @@ arguments:
 
 baseCommand: []
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

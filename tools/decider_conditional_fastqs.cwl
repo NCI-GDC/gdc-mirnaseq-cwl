@@ -9,17 +9,14 @@ class: ExpressionTool
 
 inputs:
   - id: conditional_fastq1
-    format: "edam:format_1930"
     type: File
   - id: conditional_fastq2
-    format: "edam:format_1930"
     type:
       type: array
       items: File
       
 outputs:
   - id: output
-    format: "edam:format_1930"
     type: File
 
 # If the second BAM exists, take it. Otherwise take the first BAM.
@@ -38,7 +35,3 @@ expression: |
       return {'output': output};
   }
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl

@@ -21,7 +21,6 @@ class: CommandLineTool
 inputs:
   - id: INPUT
     type: File
-    format: "edam:format_2572"
     inputBinding:
       position: 0
 
@@ -35,7 +34,3 @@ stdout: $(inputs.INPUT.nameroot + ".flagstat")
 
 baseCommand: [/usr/local/bin/samtools, flagstat]
 
-$namespaces:
-  edam: http://edamontology.org/
-$schemas:
-  - http://edamontology.org/EDAM_1.18.owl
