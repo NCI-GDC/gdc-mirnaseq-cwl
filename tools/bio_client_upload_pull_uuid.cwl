@@ -1,11 +1,9 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
 class: CommandLineTool
+id: bio_client_upload_pull_uuid
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/bio-client:latest
+    dockerPull: "{{ docker_repo }}/bio-client:{{ bio_client }}"
   - class: ResourceRequirement
     coresMin: 1
     coresMax: 1
@@ -17,39 +15,39 @@ requirements:
     outdirMax: 1
 
 inputs:
-  - id: config-file
+  - id: config-file:
     type: File
     inputBinding:
       prefix: --config-file
       position: 0
 
-  - id: upload
+  - id: upload:
     type: string
     default: upload
     inputBinding:
       position: 1
 
-  - id: upload-bucket
+  - id: upload-bucket:
     type: string
     inputBinding:
       prefix: --upload-bucket
       position: 2
 
-  - id: upload-key
+  - id: upload-key:
     type: string
     inputBinding:
       prefix: --upload_key
       position: 3
 
-  - id: input
+  - id: input:
     type: File
     inputBinding:
       position: 99
 
 outputs:
-  - id: output
+  - id: output:
     type: File
     outputBinding:
-      glob: "*_upload.json"      
+      glob: "*_upload.json"
 
 baseCommand: [/usr/local/bin/bio_client.py]
