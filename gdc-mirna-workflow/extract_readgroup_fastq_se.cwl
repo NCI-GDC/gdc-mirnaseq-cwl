@@ -28,7 +28,7 @@ steps:
   - id: extract_fastq
     run: ../tools/bio_client_download.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: download_handle
         source: readgroup_fastq_se_uuid

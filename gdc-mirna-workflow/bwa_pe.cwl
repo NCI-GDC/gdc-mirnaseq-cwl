@@ -8,7 +8,7 @@ requirements:
   - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.yml
+      - $import: ../tools/readgroup.yml
   - class: StepInputExpressionRequirement
 
 inputs:
@@ -25,7 +25,7 @@ inputs:
       - .sa
       - ^.dict
   - id: readgroup_fastq_pe
-    type: ../../tools/readgroup.yml#readgroup_fastq_pe_file
+    type: ../tools/readgroup.yml#readgroup_fastq_pe_file
   - id: thread_count
     type: long
 
@@ -39,7 +39,7 @@ outputs:
 
 steps:
   - id: fastqc1
-    run: ../../tools/fastqc.cwl
+    run: ../tools/fastqc.cwl
     in:
       - id: INPUT
         source: readgroup_fastq_pe
@@ -50,7 +50,7 @@ steps:
       - id: OUTPUT
 
   - id: fastqc2
-    run: ../../tools/fastqc.cwl
+    run: ../tools/fastqc.cwl
     in:
       - id: INPUT
         source: readgroup_fastq_pe
@@ -61,7 +61,7 @@ steps:
       - id: OUTPUT
 
   - id: fastqc_db1
-    run: ../../tools/fastqc_db.cwl
+    run: ../tools/fastqc_db.cwl
     in:
       - id: INPUT
         source: fastqc1/OUTPUT
@@ -72,7 +72,7 @@ steps:
       - id: OUTPUT
 
   - id: fastqc_db2
-    run: ../../tools/fastqc_db.cwl
+    run: ../tools/fastqc_db.cwl
     in:
       - id: INPUT
         source: fastqc2/OUTPUT
@@ -83,7 +83,7 @@ steps:
       - id: OUTPUT
 
   - id: fastqc_basicstats_json
-    run: ../../tools/fastqc_basicstatistics_json.cwl
+    run: ../tools/fastqc_basicstatistics_json.cwl
     in:
       - id: sqlite_path
         source: fastqc_db1/OUTPUT
@@ -91,7 +91,7 @@ steps:
       - id: OUTPUT
 
   - id: bwa_pe
-    run: ../../tools/bwa_record_pe.cwl
+    run: ../tools/bwa_record_pe.cwl
     in:
       - id: fasta
         source: reference_sequence
@@ -112,7 +112,7 @@ steps:
       - id: OUTPUT
 
   - id: bam_readgroup_to_json
-    run: ../../tools/bam_readgroup_to_json.cwl
+    run: ../tools/bam_readgroup_to_json.cwl
     in:
       - id: INPUT
         source: bwa_pe/OUTPUT
@@ -122,7 +122,7 @@ steps:
       - id: OUTPUT
 
   - id: readgroup_json_db
-    run: ../../tools/readgroup_json_db.cwl
+    run: ../tools/readgroup_json_db.cwl
     scatter: json_path
     in:
       - id: json_path
@@ -134,7 +134,7 @@ steps:
       - id: output_sqlite
 
   - id: merge_readgroup_json_db
-    run: ../../tools/merge_sqlite.cwl
+    run: ../tools/merge_sqlite.cwl
     in:
       - id: source_sqlite
         source: readgroup_json_db/output_sqlite
@@ -144,7 +144,7 @@ steps:
       - id: destination_sqlite
 
   - id: merge_sqlite
-    run: ../../tools/merge_sqlite.cwl
+    run: ../tools/merge_sqlite.cwl
     in:
       - id: source_sqlite
         source: [

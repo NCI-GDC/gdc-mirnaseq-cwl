@@ -129,7 +129,7 @@ steps:
   - id: extract_reference_amb
     run: ../tools/bio_client_download.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: download_handle
         source: reference_amb_gdc_id
@@ -141,7 +141,7 @@ steps:
   - id: extract_reference_ann
     run: ../tools/bio_client_download.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: download_handle
         source: reference_ann_gdc_id
@@ -153,7 +153,7 @@ steps:
   - id: extract_reference_bwt
     run: ../tools/bio_client_download.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: download_handle
         source: reference_bwt_gdc_id
@@ -165,7 +165,7 @@ steps:
   - id: extract_reference_dict
     run: ../tools/bio_client_download.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: download_handle
         source: reference_dict_gdc_id
@@ -177,7 +177,7 @@ steps:
   - id: extract_reference_fa
     run: ../tools/bio_client_download.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: download_handle
         source: reference_fa_gdc_id
@@ -189,7 +189,7 @@ steps:
   - id: extract_reference_fai
     run: ../tools/bio_client_download.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: download_handle
         source: reference_fai_gdc_id
@@ -201,7 +201,7 @@ steps:
   - id: extract_reference_pac
     run: ../tools/bio_client_download.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: download_handle
         source: reference_pac_gdc_id
@@ -213,7 +213,7 @@ steps:
   - id: extract_reference_sa
     run: ../tools/bio_client_download.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: download_handle
         source: reference_sa_gdc_id
@@ -344,13 +344,13 @@ steps:
   - id: load_bam
     run: ../tools/bio_client_upload_pull_uuid.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: input
         source: transform/output_bam
-      - id: upload-bucket
+      - id: upload_bucket
         source: bioclient_load_bucket
-      - id: upload-key
+      - id: upload_key
         valueFrom: $(inputs.job_uuid)/$(inputs.input.basename)
       - id: job_uuid
         source: job_uuid
@@ -361,14 +361,14 @@ steps:
   - id: load_bai
     run: ../tools/bio_client_upload_pull_uuid.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: input
         source: transform/output_bam
         valueFrom: $(self.secondaryFiles[0])
-      - id: upload-bucket
+      - id: upload_bucket
         source: bioclient_load_bucket
-      - id: upload-key
+      - id: upload_key
         valueFrom: $(inputs.job_uuid)/$(inputs.input.nameroot).bai
       - id: job_uuid
         source: job_uuid
@@ -379,13 +379,13 @@ steps:
   - id: load_sqlite
     run: ../tools/bio_client_upload_pull_uuid.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: input
         source: transform/sqlite
-      - id: upload-bucket
+      - id: upload_bucket
         source: bioclient_load_bucket
-      - id: upload-key
+      - id: upload_key
         valueFrom: $(inputs.job_uuid)/$(inputs.input.basename)
       - id: job_uuid
         source: job_uuid
@@ -396,13 +396,13 @@ steps:
   - id: load_tar_mirna_profiling
     run: ../tools/bio_client_upload_pull_uuid.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: input
         source: tar_mirna_profiling/OUTPUT
-      - id: upload-bucket
+      - id: upload_bucket
         source: bioclient_load_bucket
-      - id: upload-key
+      - id: upload_key
         valueFrom: $(inputs.job_uuid)/$(inputs.input.basename)
       - id: job_uuid
         source: job_uuid
@@ -413,13 +413,13 @@ steps:
   - id: load_mirna_profiling_isoforms_quant
     run: ../tools/bio_client_upload_pull_uuid.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: input
         source: rename_isoforms_quant/OUTPUT
-      - id: upload-bucket
+      - id: upload_bucket
         source: bioclient_load_bucket
-      - id: upload-key
+      - id: upload_key
         valueFrom: $(inputs.job_uuid)/$(inputs.input.basename)
       - id: job_uuid
         source: job_uuid
@@ -430,13 +430,13 @@ steps:
   - id: load_mirna_profiling_mirnas_quant
     run: ../tools/bio_client_upload_pull_uuid.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: input
         source: rename_mirnas_quant/OUTPUT
-      - id: upload-bucket
+      - id: upload_bucket
         source: bioclient_load_bucket
-      - id: upload-key
+      - id: upload_key
         valueFrom: $(inputs.job_uuid)/$(inputs.input.basename)
       - id: job_uuid
         source: job_uuid

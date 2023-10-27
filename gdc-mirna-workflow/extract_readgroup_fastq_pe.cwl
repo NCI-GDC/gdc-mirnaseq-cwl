@@ -28,7 +28,7 @@ steps:
   - id: extract_forward_fastq
     run: ../tools/bio_client_download.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: download_handle
         source: readgroup_fastq_pe_uuid
@@ -42,7 +42,7 @@ steps:
   - id: extract_reverse_fastq
     run: ../tools/bio_client_download.cwl
     in:
-      - id: config-file
+      - id: config_file
         source: bioclient_config
       - id: download_handle
         source: readgroup_fastq_pe_uuid

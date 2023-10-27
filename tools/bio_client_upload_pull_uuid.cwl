@@ -25,7 +25,7 @@ inputs:
         class: File
         location: /etc/ssl/certs/ca-certificates.crt
 
-  config-file:
+  config_file:
     type: File
     inputBinding:
       prefix: --config-file
@@ -37,13 +37,13 @@ inputs:
     inputBinding:
       position: 1
 
-  upload-bucket:
+  upload_bucket:
     type: string
     inputBinding:
       prefix: --upload-bucket
       position: 2
 
-  upload-key:
+  upload_key:
     type: string
     inputBinding:
       prefix: --upload_key
@@ -55,7 +55,7 @@ inputs:
       position: 99
 
 outputs:
-  - id: output
+  output:
     type: File
     outputBinding:
       glob: "*_upload.json"
