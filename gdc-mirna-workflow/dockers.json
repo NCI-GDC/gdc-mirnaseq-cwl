@@ -1,4 +1,4 @@
 {
- "docker_repo": "docker.osdc.io/ncigdc",
- "bio_client": "latest"
+        "docker_repo": "docker.osdc.io/ncigdc",
+        "bio_client": "latest"
 }

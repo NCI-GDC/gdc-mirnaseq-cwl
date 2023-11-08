@@ -1,11 +1,11 @@
 {
     "template": "git@github.com:NCI-GDC/bio-cwl-template.git",
-    "commit": "101317ca3247a2e1fb70857bd399a4bfd96590e7",
+    "commit": "b243ab0a2d3acbdbd9148f7d29f48aa12a2f6eec",
     "context": {
       "cookiecutter": {
         "repository_name": "gdc-mirnaseq-cwl",
         "workflow_name": "gdc-mirna-workflow",
-        "commit": "101317ca3247a2e1fb70857bd399a4bfd96590e7",
+        "commit": "b243ab0a2d3acbdbd9148f7d29f48aa12a2f6eec",
         "_template": "git@github.com:NCI-GDC/bio-cwl-template.git"
       }
     },

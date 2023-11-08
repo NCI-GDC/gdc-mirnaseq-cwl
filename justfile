@@ -1,7 +1,7 @@
 init: _init-pip _init-hooks
 
 _init-pip:
-  python3 -m pip install cwltool==3.1.20230213100550 #jinja-cli
+  python3 -m pip install cwltool==3.1.20230213100550 jinja-cli
 
 _init-hooks:
   python3 -m pip install --upgrade pre-commit

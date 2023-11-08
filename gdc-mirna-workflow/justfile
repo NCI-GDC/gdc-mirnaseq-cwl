@@ -1,9 +1,11 @@
 ENTRY_CWL := "etl.cwl"
 
 # Pack and apply Jinja templating. Creates cwl.json file
-pack: _validate_entry
+# Should be runnable in built docker container
+pack:
     #!/bin/sh
     if [ ! -f cwl.json ]; then
+        just _validate_entry
         just _cwltool-pack > tmp.json
         just _jinja tmp.json > cwl.json
         rm tmp.json
@@ -25,7 +27,7 @@ _print-cwl:
 
 # Packs CWL workflow into single json file
 _cwltool-pack: _validate_entry
-	python3 -m cwltool --pack {{ENTRY_CWL}}
+	cwltool --pack {{ENTRY_CWL}}
 
 # Apply template to JSON from dockers.json, errors on missing keys
 _jinja JSON:
@@ -33,7 +35,7 @@ _jinja JSON:
 
 # Validates CWL workflow
 validate: _validate_entry
-	python3 -m cwltool --validate {{ENTRY_CWL}}
+	cwltool --validate --strict {{ENTRY_CWL}}
 
 # Formats and prints all Dockers used in workflow
 get-dockers:
@@ -45,4 +47,4 @@ get-dockers-template:
 
 # Print template input file for workflow
 inputs:
-  python3 -m cwltool --make-template {{ENTRY_CWL}}
+  cwltool --make-template {{ENTRY_CWL}}
