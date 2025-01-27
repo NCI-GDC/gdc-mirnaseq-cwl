@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: docker.osdc.io/ncigdc/bio-alpine:base
+    dockerPull: {{ docker_repository }}/bio-alpine:base
   - class: InlineJavascriptRequirement
   - class: ShellCommandRequirement
 
