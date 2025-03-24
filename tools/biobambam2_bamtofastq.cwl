@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/biobambam:{{ biobambam }}
+    dockerPull: "{{ docker_repository }}/biobambam:{{ biobambam }}"
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1

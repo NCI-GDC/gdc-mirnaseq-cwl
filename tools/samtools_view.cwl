@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/samtools:147bd4cc606a63c7435907d97fea6e94e9ea9ed58c18f390cab8bc40b1992df7
+    dockerPull: {{ docker_repository }}/samtools:{{ samtools }}"
   - class: InlineJavascriptRequirement
 
 class: CommandLineTool

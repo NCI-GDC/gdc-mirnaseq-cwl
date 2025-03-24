@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/bwa:{{ bwa }}
+    dockerPull: "{{ docker_repository }}/bwa:{{ bwa }}"
   - class: InlineJavascriptRequirement
   - class: SchemaDefRequirement
     types:

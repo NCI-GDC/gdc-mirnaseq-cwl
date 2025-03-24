@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/integrity_to_sqlite:9b900fd5dedfdcb4b4c9a2034070463aa87b5e28a6e7ec59a0c504aab83c16f3
+    dockerPull: "{{ docker_repository }}/integrity_to_sqlite:{{ integrity_to_sqlite }}"
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1

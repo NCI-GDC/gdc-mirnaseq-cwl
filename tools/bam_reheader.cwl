@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/bam_reheader:{{ bam_reheader }}
+    dockerPull: "{{ docker_repository }}/bam_reheader:{{ bam_reheader }}"
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1
