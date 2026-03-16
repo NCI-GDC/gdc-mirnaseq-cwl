@@ -1,15 +1,13 @@
 ENTRY_CWL := "etl.cwl"
+RENDER_DIR := ".rendered"
 
 # Pack and apply Jinja templating. Creates cwl.json file
-# Should be runnable in built docker container
 pack:
     #!/bin/sh
-    if [ ! -f cwl.json ]; then
-        just _validate_entry
-        just _cwltool-pack > tmp.json
-        just _jinja tmp.json > cwl.json
-        rm tmp.json
-    fi
+    rm -rf {{RENDER_DIR}} cwl.json
+    just _validate_entry
+    just _render_tree
+    just _cwltool-pack > cwl.json
     just _print-cwl
 
 # Ensures CWL entrypoint script exists
@@ -18,33 +16,69 @@ _validate_entry:
     if [ ! -f {{ENTRY_CWL}} ]; then
         echo "No entry CWL file found!"
         echo {{ENTRY_CWL}}
-        exit 1;
+        exit 1
     fi
 
 # Prints cwl.json if exists
 _print-cwl:
     @cat cwl.json
 
-# Packs CWL workflow into single json file
-_cwltool-pack: _validate_entry
-	cwltool --pack {{ENTRY_CWL}}
+# Render workflow dir and sibling tools dir with Jinja, preserving relative layout
+_render_tree:
+    #!/bin/sh
+    set -eu
 
-# Apply template to JSON from dockers.json, errors on missing keys
+    mkdir -p {{RENDER_DIR}}/gdc-mirna-workflow
+    mkdir -p {{RENDER_DIR}}/tools
+
+    find . -maxdepth 1 \( -name '*.cwl' -o -name '*.yml' -o -name '*.yaml' \) | while read -r f; do
+        jinja -u strict -d dockers.json "$f" > "{{RENDER_DIR}}/gdc-mirna-workflow/$f"
+    done
+
+    find ../tools -maxdepth 1 \( -name '*.cwl' -o -name '*.yml' -o -name '*.yaml' \) | while read -r f; do
+        base="$(basename "$f")"
+        jinja -u strict -d dockers.json "$f" > "{{RENDER_DIR}}/tools/$base"
+    done
+
+    # copy json files if any are referenced directly
+    find . -maxdepth 1 -name '*.json' ! -name 'dockers.json' | while read -r f; do
+        cp "$f" "{{RENDER_DIR}}/gdc-mirna-workflow/$f"
+    done
+
+    find ../tools -maxdepth 1 -name '*.json' | while read -r f; do
+        base="$(basename "$f")"
+        cp "$f" "{{RENDER_DIR}}/tools/$base"
+    done
+
+# Packs rendered CWL workflow into single json file
+_cwltool-pack:
+    cd {{RENDER_DIR}}/gdc-mirna-workflow && cwltool --pack {{ENTRY_CWL}}
+
+# Apply template to JSON from dockers.json, kept only for compatibility
 _jinja JSON:
-    jinja -u 'strict' -d dockers.json {{JSON}}
+    jinja -u strict -d dockers.json {{JSON}}
 
-# Validates CWL workflow
-validate: _validate_entry
-	cwltool --validate --strict {{ENTRY_CWL}}
+# Validates rendered CWL workflow
+validate:
+    #!/bin/sh
+    rm -rf {{RENDER_DIR}}
+    just _validate_entry
+    just _render_tree
+    cd {{RENDER_DIR}}/gdc-mirna-workflow && cwltool --validate --strict {{ENTRY_CWL}}
 
 # Formats and prints all Dockers used in workflow
 get-dockers:
-  just pack | grep dockerPull | cut -f2- -d ":" | sort | uniq | sed "s/\"//g"
+    just pack | grep dockerPull | cut -f2- -d ":" | sort | uniq | sed 's/"//g'
 
-# Prints all dockerPull declarations in unformatted workflow
+# Prints all dockerPull declarations after rendering and packing
 get-dockers-template:
-  just _cwltool-pack | grep dockerPull | cut -f2- -d ":" | sort | uniq | sed "s/\"//g"
+    just _render_tree
+    just _cwltool-pack | grep dockerPull | cut -f2- -d ":" | sort | uniq | sed 's/"//g'
 
-# Print template input file for workflow
+# Print template input file for rendered workflow
 inputs:
-  cwltool --make-template {{ENTRY_CWL}}
+    #!/bin/sh
+    rm -rf {{RENDER_DIR}}
+    just _validate_entry
+    just _render_tree
+    cd {{RENDER_DIR}}/gdc-mirna-workflow && cwltool --make-template {{ENTRY_CWL}}

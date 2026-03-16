@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/mirna-profiler:{{ mirna-profiler }}"
+    dockerPull: {{ docker_repository }}/mirna-profiler:{{ mirna_profiler }}"
   - class: InitialWorkDirRequirement
     listing:
       - entryname: $(inputs.sam.basename)

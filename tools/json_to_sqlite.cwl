@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: "{{ docker_repository }}/json-to-sqlite:{{ json_to_sqlite }}
+    dockerPull: "{{ docker_repository }}/json-to-sqlite:{{ json_to_sqlite }}"
   - class: ResourceRequirement
     coresMin: 1
     coresMax: 1

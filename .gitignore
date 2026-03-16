@@ -109,4 +109,7 @@ ENV/
 .vscode/
 
 # Ignore cwl.json file
+.rendered/
+.rendered_cwl/
 cwl.json
+tmp.json
