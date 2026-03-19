@@ -169,5 +169,5 @@ outputs:
       outputEval: |
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
-baseCommand: [/usr/local/bin/bamtofastq]
+baseCommand: [bamtofastq]
 
