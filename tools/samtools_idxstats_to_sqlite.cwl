@@ -39,6 +39,12 @@ inputs:
     inputBinding:
       prefix: --job_uuid
 
+  - id: metric_name
+    type: string
+    default: idxstats
+    inputBinding:
+      prefix: --metric_name
+
 outputs:
   - id: log
     type: File
@@ -50,5 +56,4 @@ outputs:
     outputBinding:
       glob: $(inputs.job_uuid + ".db")
 
-baseCommand: [/usr/local/bin/samtools_metrics_sqlite, --metric_name, idxstats]
 
