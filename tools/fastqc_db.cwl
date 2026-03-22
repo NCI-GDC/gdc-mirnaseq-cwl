@@ -41,5 +41,5 @@ outputs:
       glob: $(inputs.INPUT.nameroot + ".db")
 
           
-baseCommand: [/usr/local/bin/fastqc_db]
+baseCommand: []
 
