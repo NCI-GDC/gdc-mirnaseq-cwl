@@ -30,5 +30,5 @@ outputs:
     outputBinding:
       glob: "fastqc.json"
 
-baseCommand: [/usr/local/bin/fastqc_to_json]
+baseCommand: []
 
