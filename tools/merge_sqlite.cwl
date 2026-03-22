@@ -70,5 +70,5 @@ outputs:
     outputBinding:
       glob: $(inputs.job_uuid + ".log")
 
-baseCommand: [merge_sqlite]
+#baseCommand: [merge_sqlite]
 
