@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: "{{ docker_repository }}/merge_sqlite:{{ merge_sqlite }}"
+    dockerPull: "{{ docker_repository }}/merge-sqlite:{{ merge_sqlite }}"
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1
