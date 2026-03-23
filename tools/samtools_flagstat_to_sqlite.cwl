@@ -1,10 +1,9 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: samtools_flagstat_to_sqlite
 requirements:
   - class: DockerRequirement
-    dockerPull: "{{ docker_repository }}/samtools_metrics_sqlite:{{ samtools_metrics_sqlite }}"
+    dockerPull: "{{ docker_repo }}/samtools_metrics_sqlite:{{ samtools_metrics_sqlite }}"
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1
@@ -16,45 +15,44 @@ requirements:
     outdirMin: 5
     outdirMax: 5
 
-class: CommandLineTool
-
 inputs:
-  - id: bam
+  bam:
     type: string
     inputBinding:
       prefix: --bam
 
-  - id: input_state
+  input_state:
     type: string
     inputBinding:
       prefix: --input_state
 
-  - id: metric_path
+  metric_path:
     type: File
     inputBinding:
       prefix: --metric_path
 
-  - id: job_uuid
+  job_uuid:
     type: string
     inputBinding:
       prefix: --job_uuid
 
-
-  - id: metric_name
+  metric_name:
     type: string
     default: flagstat
     inputBinding:
       prefix: --metric_name
 
+stdout: "$(inputs.job_uuid)_samtools_flagstat.log"
+
 outputs:
-  - id: log
+  log:
     type: File
     outputBinding:
-      glob: $(inputs.job_uuid+"_samtools_flagstat.log")
+      glob: "$(inputs.job_uuid)_samtools_flagstat.log"
 
-  - id: sqlite
+  sqlite:
     type: File
     outputBinding:
-      glob: $(inputs.job_uuid + ".db")
+      glob: "$(inputs.job_uuid).db"
 
-
+# baseCommand: samtools_metrics_sqlite
