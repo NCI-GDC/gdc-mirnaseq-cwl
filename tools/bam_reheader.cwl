@@ -24,6 +24,11 @@ inputs:
     inputBinding:
       prefix: --bam_path
 
+  - id: header_path
+    type: File
+    inputBinding:
+      prefix: --header_path
+
 outputs:
   - id: output
     type: File
@@ -36,4 +41,3 @@ outputs:
       glob: $(inputs.input.basename + ".log")
 
 baseCommand: [/usr/local/bin/bam_reheader]
-

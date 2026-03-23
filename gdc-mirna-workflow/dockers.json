@@ -3,7 +3,7 @@
     "bio_client": "latest",
     "fedora": "26",
     "bam_readgroup_to_json": "1.0.1",
-    "bam_reheader": "build-8-6c38352f",
+    "bam_reheader": "build-9-279d3b86",
     "biobambam": "2.0.95-e069a11",
     "bwa": "0.7.19-f9758a0",
     "fastq_cleaner": "1.0.0-28dc9d4",

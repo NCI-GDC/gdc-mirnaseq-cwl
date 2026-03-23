@@ -304,6 +304,9 @@ steps:
     in:
       - id: input
         source: picard_mergesamfiles/MERGED_OUTPUT
+      - id: header_path
+        source: reference_sequence
+        valueFrom: $(self.secondaryFiles.filter(f => f.basename.endsWith(".dict"))[0])
     out:
       - id: output
 
