@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/samtools_metrics_sqlite:{{ samtools_metrics_sqlite }}"
+    dockerPull: "{{ docker_repository }}/samtools_metrics_sqlite:{{ samtools_metrics_sqlite }}"
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1
