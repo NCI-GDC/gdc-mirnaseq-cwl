@@ -1,9 +1,10 @@
+#!/usr/bin/env cwl-runner
+
 cwlVersion: v1.0
-class: CommandLineTool
-id: samtools_idxstats_to_sqlite
+
 requirements:
   - class: DockerRequirement
-    dockerPull: "{{ docker_repo }}/samtools_metrics_sqlite:{{ samtools_metrics_sqlite }}"
+    dockerPull: "{{ docker_repository }}/samtools_metrics_sqlite:{{ samtools_metrics_sqlite }}"
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1
@@ -15,44 +16,43 @@ requirements:
     outdirMin: 5
     outdirMax: 5
 
+class: CommandLineTool
+
 inputs:
-  bam:
+  - id: bam
     type: string
     inputBinding:
       prefix: --bam
 
-  input_state:
+  - id: input_state
     type: string
     inputBinding:
       prefix: --input_state
 
-  metric_name:
+  - id: metric_path
+    type: File
+    inputBinding:
+      prefix: --metric_path
+
+  - id: job_uuid
+    type: string
+    inputBinding:
+      prefix: --job_uuid
+
+  - id: metric_name
     type: string
     default: idxstats
     inputBinding:
       prefix: --metric_name
 
-  metric_path:
-    type: File
-    inputBinding:
-      prefix: --metric_path
-
-  job_uuid:
-    type: string
-    inputBinding:
-      prefix: --job_uuid
-
-stdout: "$(inputs.job_uuid)_samtools_idxstats.log"
 
 outputs:
-  log:
+  - id: log
     type: File
     outputBinding:
       glob: "$(inputs.job_uuid)_samtools_idxstats.log"
 
-  sqlite:
+  - id: sqlite
     type: File
     outputBinding:
-      glob: "$(inputs.job_uuid).db"
-
-# baseCommand: samtools_metrics_sqlite
+      glob: $(inputs.job_uuid + ".db")
