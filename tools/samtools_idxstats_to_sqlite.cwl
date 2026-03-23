@@ -55,4 +55,4 @@ outputs:
   - id: sqlite
     type: File
     outputBinding:
-      glob: $(inputs.job_uuid + ".db")
+      glob: "$(inputs.job_uuid).db"
