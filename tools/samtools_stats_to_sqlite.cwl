@@ -41,7 +41,7 @@ inputs:
 
   - id: metric_name
     type: string
-    default: idxstats
+    default: stats
     inputBinding:
       prefix: --metric_name
 
