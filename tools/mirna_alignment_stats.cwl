@@ -27,7 +27,7 @@ inputs:
     type: string
     default: "."
     inputBinding:
-      position: 93
+      position: 1
       prefix: -p
 
 outputs:
@@ -39,47 +39,41 @@ outputs:
   - id: features
     type: Directory
     outputBinding:
-      glob: $(inputs.sam.nameroot)_features
-
-  # - id: bed
-  #   type: Directory
-  #   outputBinding:
-  #     glob: $(inputs.sam.nameroot)_features/bed
+      glob: $(inputs.sam.nameroot + "_features")
 
   - id: chastity_taglengths_csv
     type: File
-    outputBinding: 
-     glob: $(inputs.sam.nameroot)_features/chastity_taglengths.csv
+    outputBinding:
+      glob: $(inputs.sam.nameroot + "_features/chastity_taglengths.csv")
 
   - id: crossmapped_txt
     type: File
     outputBinding:
-      glob: $(inputs.sam.nameroot)_features/crossmapped.txt
+      glob: $(inputs.sam.nameroot + "_features/crossmapped.txt")
 
   - id: filtered_taglengths_csv
     type: File
     outputBinding:
-      glob: $(inputs.sam.nameroot)_features/filtered_taglengths.csv
+      glob: $(inputs.sam.nameroot + "_features/filtered_taglengths.csv")
 
   - id: isoforms_txt
     type: File
     outputBinding:
-      glob: $(inputs.sam.nameroot)_features/isoforms.txt
+      glob: $(inputs.sam.nameroot + "_features/isoforms.txt")
 
   - id: miRNA_txt
     type: File
     outputBinding:
-      glob: $(inputs.sam.nameroot)_features/miRNA.txt
+      glob: $(inputs.sam.nameroot + "_features/miRNA.txt")
 
   - id: mirna_species_txt
     type: File
     outputBinding:
-      glob: $(inputs.sam.nameroot)_features/mirna_species.txt
+      glob: $(inputs.sam.nameroot + "_features/mirna_species.txt")
 
   - id: softclip_taglengths_csv
     type: File
     outputBinding:
-      glob: $(inputs.sam.nameroot)_features/softclip_taglengths.csv
+      glob: $(inputs.sam.nameroot + "_features/softclip_taglengths.csv")
 
 baseCommand: [/usr/mirna/code/library_stats/alignment_stats.pl]
-

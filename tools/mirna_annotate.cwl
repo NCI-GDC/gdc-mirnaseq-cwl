@@ -60,9 +60,7 @@ arguments:
   - valueFrom: >-
       chmod 1777 /tmp &&
       mkdir -p /var/run/mysqld &&
-      chown -R mysql:mysql /var/run/mysqld /var/lib/mysql &&
       /usr/sbin/mysqld
-      --user=mysql
       --datadir=/var/lib/mysql
       --socket=/var/run/mysqld/mysqld.sock
       --pid-file=/var/run/mysqld/mysqld.pid
