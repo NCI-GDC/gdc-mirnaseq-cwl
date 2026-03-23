@@ -17,10 +17,10 @@ class: CommandLineTool
 inputs:
   - id: sam
     type: File
-    
+
   - id: mirbase
     type: string
-    default: "hg38"
+    default: "mirbase"
     inputBinding:
       position: 90
       prefix: -m
@@ -57,25 +57,20 @@ outputs:
       glob: $(inputs.sam.basename)
 
 arguments:
-  - valueFrom: "chmod 1777 /tmp"
+  - valueFrom: >-
+      chmod 1777 /tmp &&
+      mkdir -p /var/run/mysqld &&
+      chown -R mysql:mysql /var/run/mysqld /var/lib/mysql &&
+      /usr/sbin/mysqld
+      --user=mysql
+      --datadir=/var/lib/mysql
+      --socket=/var/run/mysqld/mysqld.sock
+      --pid-file=/var/run/mysqld/mysqld.pid
+      --bind-address=127.0.0.1
+      --daemonize &&
+      mysqladmin --socket=/var/run/mysqld/mysqld.sock ping --silent &&
+      /usr/mirna/code/annotation/annotate.pl
     position: 0
     shellQuote: false
 
-  - valueFrom: "&& sudo chown -R mysql:mysql /var/lib/mysql"
-    position: 1
-    shellQuote: false
-
-  - valueFrom: "&& sudo /usr/sbin/mysqld --defaults-file=/etc/mysql/my.cnf --user=mysql --daemonize"
-    position: 2
-    shellQuote: false
-
-  - valueFrom: "&& /usr/mirna/code/annotation/annotate.pl"
-    position: 3
-    shellQuote: false
-
-  # - valueFrom: "&& chown -R ubuntu:ubuntu /var/spool/cwl"
-  #   position: 94
-  #   shellQuote: false
-
-baseCommand: []
-
+baseCommand: [bash, -lc]
