@@ -10,7 +10,6 @@ requirements:
       - entryname: $(inputs.sam.basename)
         entry: $(inputs.sam)
         writable: true
-  - class: ShellCommandRequirement
 
 class: CommandLineTool
 
@@ -24,7 +23,6 @@ inputs:
     inputBinding:
       position: 90
       prefix: -m
-      shellQuote: false
 
   - id: ucsc_database
     type: string
@@ -32,7 +30,6 @@ inputs:
     inputBinding:
       position: 91
       prefix: -u
-      shellQuote: false
 
   - id: species_code
     type: string
@@ -40,7 +37,6 @@ inputs:
     inputBinding:
       position: 92
       prefix: -o
-      shellQuote: false
 
   - id: project_directory
     type: string
@@ -48,7 +44,6 @@ inputs:
     inputBinding:
       position: 93
       prefix: -p
-      shellQuote: false
 
 outputs:
   - id: output
@@ -57,7 +52,8 @@ outputs:
       glob: $(inputs.sam.basename)
 
 arguments:
-  - valueFrom: >-
+  - position: 0
+    valueFrom: >-
       chmod 1777 /tmp &&
       mkdir -p /var/run/mysqld &&
       /usr/sbin/mysqld
@@ -68,7 +64,5 @@ arguments:
       --daemonize &&
       mysqladmin --socket=/var/run/mysqld/mysqld.sock ping --silent &&
       /usr/mirna/code/annotation/annotate.pl
-    position: 0
-    shellQuote: false
 
 baseCommand: [bash, -lc]
