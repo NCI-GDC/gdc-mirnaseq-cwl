@@ -48,7 +48,9 @@ inputs:
 
 outputs:
   - id: log
-    type: File
+    type:
+      - "null"
+      - File
     outputBinding:
       glob: "$(inputs.job_uuid)_samtools_idxstats.log"
 
