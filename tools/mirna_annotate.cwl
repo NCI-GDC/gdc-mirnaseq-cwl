@@ -1,4 +1,4 @@
-#!/usr/bin/env cwl-runner
+k#!/usr/bin/env cwl-runner
 
 cwlVersion: v1.0
 
@@ -20,30 +20,18 @@ inputs:
   - id: mirbase
     type: string
     default: "mirbase"
-    inputBinding:
-      position: 90
-      prefix: -m
 
   - id: ucsc_database
     type: string
     default: "hg38"
-    inputBinding:
-      position: 91
-      prefix: -u
 
   - id: species_code
     type: string
     default: "hsa"
-    inputBinding:
-      position: 92
-      prefix: -o
 
   - id: project_directory
     type: string
     default: "."
-    inputBinding:
-      position: 93
-      prefix: -p
 
 outputs:
   - id: output
