@@ -64,5 +64,9 @@ arguments:
       --daemonize &&
       mysqladmin --socket=/var/run/mysqld/mysqld.sock ping --silent &&
       /usr/mirna/code/annotation/annotate.pl
+      -m $(inputs.mirbase)
+      -u $(inputs.ucsc_database)
+      -o $(inputs.species_code)
+      -p $(inputs.project_directory)
 
 baseCommand: [bash, -lc]
