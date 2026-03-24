@@ -46,16 +46,19 @@ arguments:
       test -f /var/lib/mysql/mysql/plugin.frm &&
       /usr/sbin/mysqld
       --datadir=/var/lib/mysql
-      --socket=/var/run/mysqld/mysqld.sock
+      --socket=/var/lib/mysql/mysql.sock
       --pid-file=/var/run/mysqld/mysqld.pid
       --bind-address=127.0.0.1
       --skip-networking=0
       --daemonize &&
+
       for i in 1 2 3 4 5 6 7 8 9 10; do
-        mysqladmin --socket=/var/run/mysqld/mysqld.sock ping --silent && break;
+        mysqladmin --socket=/var/lib/mysql/mysql.sock ping --silent && break;
         sleep 1;
       done &&
-      mysqladmin --socket=/var/run/mysqld/mysqld.sock ping --silent &&
+
+      mysqladmin --socket=/var/lib/mysql/mysql.sock ping --silent &&
+
       /usr/mirna/code/annotation/annotate.pl
       -m "$(inputs.mirbase)"
       -u "$(inputs.ucsc_database)"
