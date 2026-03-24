@@ -50,11 +50,9 @@ outputs:
   - id: log
     type: File
     outputBinding:
-      glob: $(inputs.job_uuid+"_samtools_stats.log")
+      glob: "$(inputs.job_uuid)_samtools_stats.log"
 
   - id: sqlite
     type: File
     outputBinding:
       glob: "$(inputs.job_uuid).db"
-
-
