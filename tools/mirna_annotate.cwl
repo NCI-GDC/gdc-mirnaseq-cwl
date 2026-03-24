@@ -46,7 +46,6 @@ arguments:
     valueFrom: >-
       chmod 1777 /tmp &&
       mkdir -p /var/run/mysqld /var/lib/mysql /var/lib/mysql-files &&
-      chmod -R 777 /var/run/mysqld /var/lib/mysql /var/lib/mysql-files &&
 
       if [ ! -d /var/lib/mysql/mysql ]; then
         rm -rf /var/lib/mysql/* &&
