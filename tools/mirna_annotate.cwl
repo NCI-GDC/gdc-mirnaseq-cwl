@@ -14,19 +14,15 @@ requirements:
 inputs:
   - id: sam
     type: File
-
   - id: mirbase
     type: string
     default: mirbase
-
   - id: ucsc_database
     type: string
     default: hg38
-
   - id: species_code
     type: string
     default: hsa
-
   - id: project_directory
     type: string
     default: "."
@@ -44,19 +40,10 @@ baseCommand:
 arguments:
   - position: 0
     valueFrom: >-
-      chmod 1777 /tmp &&
+      set -euo pipefail &&
       mkdir -p /var/run/mysqld /var/lib/mysql /var/lib/mysql-files &&
-
-      if [ ! -d /var/lib/mysql/mysql ]; then
-        rm -rf /var/lib/mysql/* &&
-        /usr/sbin/mysqld
-        --initialize-insecure
-        --datadir=/var/lib/mysql
-        --basedir=/opt/mysql57 &&
-        cp -a /var/lib/mysql-seed/hg38 /var/lib/mysql/ || true &&
-        cp -a /var/lib/mysql-seed/mirbase /var/lib/mysql/ || true;
-      fi &&
-
+      test -f /var/lib/mysql/mysql/user.frm &&
+      test -f /var/lib/mysql/mysql/plugin.frm &&
       /usr/sbin/mysqld
       --datadir=/var/lib/mysql
       --socket=/var/run/mysqld/mysqld.sock
@@ -64,14 +51,11 @@ arguments:
       --bind-address=127.0.0.1
       --skip-networking=0
       --daemonize &&
-
       for i in 1 2 3 4 5 6 7 8 9 10; do
         mysqladmin --socket=/var/run/mysqld/mysqld.sock ping --silent && break;
         sleep 1;
       done &&
-
       mysqladmin --socket=/var/run/mysqld/mysqld.sock ping --silent &&
-
       /usr/mirna/code/annotation/annotate.pl
       -m "$(inputs.mirbase)"
       -u "$(inputs.ucsc_database)"
