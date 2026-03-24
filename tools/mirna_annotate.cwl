@@ -46,16 +46,14 @@ arguments:
     valueFrom: >-
       chmod 1777 /tmp &&
       mkdir -p /var/run/mysqld /var/lib/mysql /var/lib/mysql-files &&
+      chmod -R 777 /var/run/mysqld /var/lib/mysql /var/lib/mysql-files &&
 
       if [ ! -d /var/lib/mysql/mysql ]; then
-        rm -rf /tmp/mysql-init &&
-        mkdir -p /tmp/mysql-init &&
-        mysql_install_db --datadir=/tmp/mysql-init --basedir=/opt/mysql57 &&
-        cp -a /tmp/mysql-init/mysql /var/lib/mysql/ &&
-        [ -d /tmp/mysql-init/performance_schema ] && cp -a /tmp/mysql-init/performance_schema /var/lib/mysql/ || true &&
-        [ -d /tmp/mysql-init/sys ] && cp -a /tmp/mysql-init/sys /var/lib/mysql/ || true &&
-        [ -f /tmp/mysql-init/ibdata1 ] && cp -a /tmp/mysql-init/ib* /var/lib/mysql/ || true &&
-        [ -f /tmp/mysql-init/auto.cnf ] && cp -a /tmp/mysql-init/auto.cnf /var/lib/mysql/ || true &&
+        rm -rf /var/lib/mysql/* &&
+        /usr/sbin/mysqld
+        --initialize-insecure
+        --datadir=/var/lib/mysql
+        --basedir=/opt/mysql57 &&
         cp -a /var/lib/mysql-seed/hg38 /var/lib/mysql/ || true &&
         cp -a /var/lib/mysql-seed/mirbase /var/lib/mysql/ || true;
       fi &&
@@ -68,7 +66,13 @@ arguments:
       --skip-networking=0
       --daemonize &&
 
+      for i in 1 2 3 4 5 6 7 8 9 10; do
+        mysqladmin --socket=/var/run/mysqld/mysqld.sock ping --silent && break;
+        sleep 1;
+      done &&
+
       mysqladmin --socket=/var/run/mysqld/mysqld.sock ping --silent &&
+
       /usr/mirna/code/annotation/annotate.pl
       -m "$(inputs.mirbase)"
       -u "$(inputs.ucsc_database)"
