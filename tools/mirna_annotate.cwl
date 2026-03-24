@@ -1,6 +1,6 @@
-k#!/usr/bin/env cwl-runner
-
+#!/usr/bin/env cwl-runner
 cwlVersion: v1.0
+class: CommandLineTool
 
 requirements:
   - class: DockerRequirement
@@ -11,23 +11,21 @@ requirements:
         entry: $(inputs.sam)
         writable: true
 
-class: CommandLineTool
-
 inputs:
   - id: sam
     type: File
 
   - id: mirbase
     type: string
-    default: "mirbase"
+    default: mirbase
 
   - id: ucsc_database
     type: string
-    default: "hg38"
+    default: hg38
 
   - id: species_code
     type: string
-    default: "hsa"
+    default: hsa
 
   - id: project_directory
     type: string
@@ -38,6 +36,10 @@ outputs:
     type: File
     outputBinding:
       glob: $(inputs.sam.basename)
+
+baseCommand:
+  - bash
+  - -lc
 
 arguments:
   - position: 0
@@ -52,9 +54,7 @@ arguments:
       --daemonize &&
       mysqladmin --socket=/var/run/mysqld/mysqld.sock ping --silent &&
       /usr/mirna/code/annotation/annotate.pl
-      -m $(inputs.mirbase)
-      -u $(inputs.ucsc_database)
-      -o $(inputs.species_code)
-      -p $(inputs.project_directory)
-
-baseCommand: [bash, -lc]
+      -m "$(inputs.mirbase)"
+      -u "$(inputs.ucsc_database)"
+      -o "$(inputs.species_code)"
+      -p "$(inputs.project_directory)"
