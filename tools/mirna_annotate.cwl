@@ -50,12 +50,14 @@ arguments:
       if [ ! -d /var/lib/mysql/mysql ]; then
         rm -rf /tmp/mysql-init &&
         mkdir -p /tmp/mysql-init &&
-        mysql_install_db --datadir=/tmp/mysql-init &&
+        mysql_install_db --datadir=/tmp/mysql-init --basedir=/opt/mysql57 &&
         cp -a /tmp/mysql-init/mysql /var/lib/mysql/ &&
         [ -d /tmp/mysql-init/performance_schema ] && cp -a /tmp/mysql-init/performance_schema /var/lib/mysql/ || true &&
         [ -d /tmp/mysql-init/sys ] && cp -a /tmp/mysql-init/sys /var/lib/mysql/ || true &&
         [ -f /tmp/mysql-init/ibdata1 ] && cp -a /tmp/mysql-init/ib* /var/lib/mysql/ || true &&
-        [ -f /tmp/mysql-init/auto.cnf ] && cp -a /tmp/mysql-init/auto.cnf /var/lib/mysql/ || true;
+        [ -f /tmp/mysql-init/auto.cnf ] && cp -a /tmp/mysql-init/auto.cnf /var/lib/mysql/ || true &&
+        cp -a /var/lib/mysql-seed/hg38 /var/lib/mysql/ || true &&
+        cp -a /var/lib/mysql-seed/mirbase /var/lib/mysql/ || true;
       fi &&
 
       /usr/sbin/mysqld
@@ -67,9 +69,8 @@ arguments:
       --daemonize &&
 
       mysqladmin --socket=/var/run/mysqld/mysqld.sock ping --silent &&
-
       /usr/mirna/code/annotation/annotate.pl
-      -m $(inputs.mirbase)
-      -u $(inputs.ucsc_database)
-      -o $(inputs.species_code)
-      -p $(inputs.project_directory)
+      -m "$(inputs.mirbase)"
+      -u "$(inputs.ucsc_database)"
+      -o "$(inputs.species_code)"
+      -p "$(inputs.project_directory)"
