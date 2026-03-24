@@ -45,11 +45,17 @@ arguments:
   - position: 0
     valueFrom: >-
       chmod 1777 /tmp &&
-      mkdir -p /var/run/mysqld &&
-      mkdir -p /var/lib/mysql &&
-      
+      mkdir -p /var/run/mysqld /var/lib/mysql /var/lib/mysql-files &&
+
       if [ ! -d /var/lib/mysql/mysql ]; then
-        mysql_install_db --datadir=/var/lib/mysql;
+        rm -rf /tmp/mysql-init &&
+        mkdir -p /tmp/mysql-init &&
+        mysql_install_db --datadir=/tmp/mysql-init &&
+        cp -a /tmp/mysql-init/mysql /var/lib/mysql/ &&
+        [ -d /tmp/mysql-init/performance_schema ] && cp -a /tmp/mysql-init/performance_schema /var/lib/mysql/ || true &&
+        [ -d /tmp/mysql-init/sys ] && cp -a /tmp/mysql-init/sys /var/lib/mysql/ || true &&
+        [ -f /tmp/mysql-init/ibdata1 ] && cp -a /tmp/mysql-init/ib* /var/lib/mysql/ || true &&
+        [ -f /tmp/mysql-init/auto.cnf ] && cp -a /tmp/mysql-init/auto.cnf /var/lib/mysql/ || true;
       fi &&
 
       /usr/sbin/mysqld
