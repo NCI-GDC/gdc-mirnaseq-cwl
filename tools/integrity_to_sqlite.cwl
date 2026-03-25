@@ -55,5 +55,5 @@ outputs:
     outputBinding:
       glob: $(inputs.job_uuid + ".db")
 
-baseCommand: [/usr/local/bin/integrity_to_sqlite]
+baseCommand: []
 
