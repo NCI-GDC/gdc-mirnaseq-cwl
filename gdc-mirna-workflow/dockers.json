@@ -10,7 +10,7 @@
     "fastqc": "0.11.7-181d296",
     "fastqc_to_json": "1.0.2",
     "fastqc_db": "1.0.2",
-    "integrity_to_sqlite": "build-2-0b88c475",
+    "integrity_to_sqlite": "build-3-6534c2fc",
     "json_to_sqlite": "1.1.0",
     "ubuntu": "bionic-20180426",
     "merge_sqlite": "1.1.1",
