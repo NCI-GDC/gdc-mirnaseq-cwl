@@ -8,7 +8,7 @@
     "bwa": "0.7.19-f9758a0",
     "fastq_cleaner": "1.0.0-28dc9d4",
     "fastqc": "0.11.7-181d296",
-    "fastqc_to_json": "1.0.2",
+    "fastqc_to_json": "bd2422f",
     "fastqc_db": "1.0.2",
     "integrity_to_sqlite": "2.0.0",
     "json_to_sqlite": "1.1.0",

@@ -4,7 +4,8 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: "{{ docker_repository }}/fastqc_db:{{ fastqc_db }}"
+#    dockerPull: "{{ docker_repository }}/fastqc_db:{{ fastqc_db }}"
+    dockerPull: dev-containers.osdc.io/ncigdc/fastqc_to_json:bd2422f
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1
