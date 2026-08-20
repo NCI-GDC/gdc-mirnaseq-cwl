@@ -4,16 +4,12 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: "{{ docker_repository }}/bwa:{{ bwa }}"
-
+    dockerPull: {{ docker_repository }}/bwa:{{ bwa }}
   - class: InlineJavascriptRequirement
-
   - class: SchemaDefRequirement
     types:
       - $import: readgroup.yml
-
   - class: ShellCommandRequirement
-
   - class: ResourceRequirement
     coresMin: $(inputs.thread_count)
     coresMax: $(inputs.thread_count)
@@ -58,7 +54,7 @@ outputs:
   - id: OUTPUT
     type: File
     outputBinding:
-      glob: $(inputs.readgroup_meta["ID"] + ".bam")
+      glob: $(inputs.readgroup_meta['ID'] + ".bam")
 
 arguments:
   - valueFrom: |
@@ -66,291 +62,67 @@ arguments:
         function to_rg() {
           var readgroup_str = "@RG";
           var keys = Object.keys(inputs.readgroup_meta).sort();
-
           for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             var value = inputs.readgroup_meta[key];
-
             if (key.length == 2 && value != null) {
-              readgroup_str =
-                readgroup_str + "\\t" + key + ":" + value;
+              readgroup_str = readgroup_str + "\\t" + key + ":" + value;
             }
           }
-
-          return readgroup_str;
-        }
-
-        /*
-         * FastQC may report Sequence length as either a single value:
-         *
-         *   "151"
-         *
-         * or a range:
-         *
-         *   "15-51"
-         *   "76-151"
-         *
-         * Extract all integer values and use the maximum observed
-         * read length for the original 70-base aligner cutoff.
-         */
-        function parse_max_readlength(
-          raw_readlength,
-          fastq_basename
-        ) {
-          if (
-            raw_readlength === null ||
-            raw_readlength === undefined
-          ) {
-            throw new Error(
-              "Missing FastQC Sequence length for " +
-              fastq_basename
-            );
-          }
-
-          var matches =
-            String(raw_readlength).match(/\d+/g);
-
-          if (!matches || matches.length === 0) {
-            throw new Error(
-              "Unable to parse FastQC Sequence length for " +
-              fastq_basename +
-              ": " +
-              raw_readlength
-            );
-          }
-
-          var max_readlength = 0;
-
-          for (var i = 0; i < matches.length; i++) {
-            var current_length =
-              parseInt(matches[i], 10);
-
-            if (
-              !isNaN(current_length) &&
-              current_length > max_readlength
-            ) {
-              max_readlength = current_length;
-            }
-          }
-
-          if (max_readlength <= 0) {
-            throw new Error(
-              "Invalid FastQC Sequence length for " +
-              fastq_basename +
-              ": " +
-              raw_readlength
-            );
-          }
-
-          return max_readlength;
-        }
-
-        /*
-         * Picard STRICT validation requires MAPQ=0 for an unmapped
-         * record. This modifies only SAM column 5 for records whose
-         * FLAG contains bit 0x4.
-         *
-         * Headers, mapped records, optional tags, sequences, and
-         * qualities are preserved.
-         */
-        function normalize_unmapped_mapq() {
-          return [
-            "awk",
-            "'BEGIN {OFS=\"\\t\"}",
-            "/^@/ {print; next}",
-            "{if (int($2/4)%2==1) $5=0; print}'"
-          ].join(" ");
+          return readgroup_str
         }
 
         function bwa_aln_33(rg_str, outbam) {
           var cmd = [
-            "bwa", "aln",
-            "-t", inputs.thread_count,
-            inputs.fasta.path,
-            inputs.fastq1.path,
-            ">", "aln.sai1",
-
-            "&&",
-
-            "bwa", "aln",
-            "-t", inputs.thread_count,
-            inputs.fasta.path,
-            inputs.fastq2.path,
-            ">", "aln.sai2",
-
-            "&&",
-
-            "bwa", "sampe",
-            "-r", "\"" + rg_str + "\"",
-            inputs.fasta.path,
-            "aln.sai1",
-            "aln.sai2",
-            inputs.fastq1.path,
-            inputs.fastq2.path,
-
-            "|",
-            normalize_unmapped_mapq(),
-
-            "|",
-            "samtools", "view",
-            "-Shb",
-            "-o", outbam,
-            "-"
+          "bwa", "aln", "-t", inputs.thread_count, inputs.fasta.path, inputs.fastq1.path, ">", "aln.sai1", "&&",
+          "bwa", "aln", "-t", inputs.thread_count, inputs.fasta.path, inputs.fastq2.path, ">", "aln.sai2", "&&",
+          "bwa", "sampe", "-r", "\"" + rg_str + "\"", inputs.fasta.path, "aln.sai1", "aln.sai2", inputs.fastq1.path, inputs.fastq2.path, "|",
+          "samtools", "view", "-Shb", "-o", outbam, "-"
           ];
-
-          return cmd.join(" ");
+          return cmd.join(' ')
         }
 
         function bwa_aln_64(rg_str, outbam) {
           var cmd = [
-            "bwa", "aln",
-            "-I",
-            "-t", inputs.thread_count,
-            inputs.fasta.path,
-            inputs.fastq1.path,
-            ">", "aln.sai1",
-
-            "&&",
-
-            "bwa", "aln",
-            "-I",
-            "-t", inputs.thread_count,
-            inputs.fasta.path,
-            inputs.fastq2.path,
-            ">", "aln.sai2",
-
-            "&&",
-
-            "bwa", "sampe",
-            "-r", "\"" + rg_str + "\"",
-            inputs.fasta.path,
-            "aln.sai1",
-            "aln.sai2",
-            inputs.fastq1.path,
-            inputs.fastq2.path,
-
-            "|",
-            normalize_unmapped_mapq(),
-
-            "|",
-            "samtools", "view",
-            "-Shb",
-            "-o", outbam,
-            "-"
+          "bwa", "aln", "-I","-t", inputs.thread_count, inputs.fasta.path, inputs.fastq1.path, ">", "aln.sai1", "&&",
+          "bwa", "aln", "-I", "-t", inputs.thread_count, inputs.fasta.path, inputs.fastq2.path, ">", "aln.sai2", "&&",
+          "bwa", "sampe", "-r", "\"" + rg_str + "\"", inputs.fasta.path, "aln.sai1", "aln.sai2", inputs.fastq1.path, inputs.fastq2.path, "|",
+          "samtools", "view", "-Shb", "-o", outbam, "-"
           ];
-
-          return cmd.join(" ");
+          return cmd.join(' ')
         }
 
         function bwa_mem(rg_str, outbam) {
           var cmd = [
-            "bwa", "mem",
-            "-t", inputs.thread_count,
-            "-T", "0",
-            "-R", "\"" + rg_str + "\"",
-            inputs.fasta.path,
-            inputs.fastq1.path,
-            inputs.fastq2.path,
-
-            "|",
-            normalize_unmapped_mapq(),
-
-            "|",
-            "samtools", "view",
-            "-Shb",
-            "-o", outbam,
-            "-"
+          "bwa", "mem", "-t", inputs.thread_count, "-T", "0", "-R", "\"" + rg_str + "\"",
+          inputs.fasta.path, inputs.fastq1.path, inputs.fastq2.path, "|",
+          "samtools", "view", "-Shb", "-o", outbam, "-"
           ];
-
-          return cmd.join(" ");
+          return cmd.join(' ')
         }
 
-        /*
-         * Preserve the original cutoff exactly:
-         *
-         *   maximum read length < 70  -> bwa aln + bwa sampe
-         *   maximum read length >= 70 -> bwa mem
-         */
         var MEM_ALN_CUTOFF = 70;
-
-        var fastqc_json;
-
-        try {
-          fastqc_json =
-            JSON.parse(inputs.fastqc_json_path.contents);
-        } catch (error) {
-          throw new Error(
-            "Unable to parse FastQC JSON: " +
-            error.message
-          );
-        }
-
-        var fastq1_basename =
-          inputs.fastq1.basename;
-
-        if (
-          !Object.prototype.hasOwnProperty.call(
-            fastqc_json,
-            fastq1_basename
-          )
-        ) {
-          throw new Error(
-            "FastQC JSON has no entry for " +
-            fastq1_basename
-          );
-        }
-
-        var fastqc_record =
-          fastqc_json[fastq1_basename];
-
-        var raw_readlength =
-          fastqc_record["Sequence length"];
-
-        var readlength =
-          parse_max_readlength(
-            raw_readlength,
-            fastq1_basename
-          );
-
-        var encoding =
-          fastqc_record["Encoding"];
-
-        if (
-          encoding === null ||
-          encoding === undefined
-        ) {
-          throw new Error(
-            "FastQC Encoding is missing for " +
-            fastq1_basename
-          );
-        }
-
+        var fastqc_json = JSON.parse(inputs.fastqc_json_path.contents);
+        var readlength = fastqc_json[inputs.fastq1.basename]["Sequence length"];
+        var encoding = fastqc_json[inputs.fastq1.basename]["Encoding"];
         var rg_str = to_rg();
 
-        var outbam =
-          inputs.readgroup_meta["ID"] + ".bam";
+        var outbam = inputs.readgroup_meta['ID'] + ".bam";
 
-        if (
-          encoding == "Illumina 1.3" ||
-          encoding == "Illumina 1.5"
-        ) {
-          return bwa_aln_64(rg_str, outbam);
-        } else if (
-          encoding == "Sanger / Illumina 1.9"
-        ) {
+        if (encoding == "Illumina 1.3" || encoding == "Illumina 1.5") {
+          return bwa_aln_64(rg_str, outbam)
+        } else if (encoding == "Sanger / Illumina 1.9") {
           if (readlength < MEM_ALN_CUTOFF) {
-            return bwa_aln_33(rg_str, outbam);
-          } else {
-            return bwa_mem(rg_str, outbam);
+            return bwa_aln_33(rg_str, outbam)
+          }
+          else {
+            return bwa_mem(rg_str, outbam)
           }
         } else {
-          throw new Error(
-            "Unsupported FASTQ encoding for " +
-            fastq1_basename +
-            ": " +
-            encoding
-          );
+          return
         }
+
       }
 
 baseCommand: [bash, -c]
+
