@@ -6,7 +6,7 @@ requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
 #    dockerPull: "{{ docker_repository }}/fastqc_to_json:{{ fastqc_to_json }}"
-    dockerPull: dev-containers.osdc.io/ncigdc/fastqc_to_json:bd2422f
+    dockerPull: dev-containers.osdc.io/ncigdc/fastqc_to_json:2dea589
   - class: ResourceRequirement
     coresMin: 1
     coresMax: 1
