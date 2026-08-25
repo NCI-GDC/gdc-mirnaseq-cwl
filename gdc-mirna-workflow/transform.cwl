@@ -262,6 +262,42 @@ steps:
       - id: bam
       - id: sqlite
 
+  - id: fix_unmapped_mapq_pe
+    run: ../tools/fixmapq.cwl
+    scatter: bam
+    in:
+      - id: bam
+        source: bwa_pe/bam
+    out:
+      - id: output_bam
+
+  - id: fix_unmapped_mapq_se
+    run: ../tools/fixmapq.cwl
+    scatter: bam
+    in:
+      - id: bam
+        source: bwa_se/bam
+    out:
+      - id: output_bam
+
+  - id: fix_unmapped_mapq_o1
+    run: ../tools/fixmapq.cwl
+    scatter: bam
+    in:
+      - id: bam
+        source: bwa_o1/bam
+    out:
+      - id: output_bam
+
+  - id: fix_unmapped_mapq_o2
+    run: ../tools/fixmapq.cwl
+    scatter: bam
+    in:
+      - id: bam
+        source: bwa_o2/bam
+    out:
+      - id: output_bam
+
   - id: merge_sqlite_bwa_pe
     run: ../tools/merge_sqlite.cwl
     in:
@@ -289,10 +325,10 @@ steps:
     in:
       - id: INPUT
         source: [
-        bwa_pe/bam,
-        bwa_se/bam,
-        bwa_o1/bam,
-        bwa_o2/bam
+          fix_unmapped_mapq_pe/output_bam,
+          fix_unmapped_mapq_se/output_bam,
+          fix_unmapped_mapq_o1/output_bam,
+          fix_unmapped_mapq_o2/output_bam
         ]
       - id: OUTPUT
         source: bam_name
