@@ -3,7 +3,7 @@ class: CommandLineTool
 
 requirements:
   DockerRequirement:
-    dockerPull: docker.osdc.io/ncigdc/samtools:latest
+    dockerPull: "{{ docker_repository }}/samtools:{{ samtools }}"
   ShellCommandRequirement: {}
 
 baseCommand:
