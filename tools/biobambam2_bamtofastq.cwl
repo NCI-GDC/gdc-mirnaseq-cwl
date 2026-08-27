@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/biobambam:533ed9be5fd34b177b5a906262c615bff1a4cdc2c84b78c2244cbd7283842120
+    dockerPull: "{{ docker_repository }}/biobambam2:{{ biobambam }}"
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1
@@ -169,5 +169,5 @@ outputs:
       outputEval: |
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
-baseCommand: [/usr/local/bin/bamtofastq]
+baseCommand: [bamtofastq]
 

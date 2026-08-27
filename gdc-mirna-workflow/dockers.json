@@ -1,4 +1,25 @@
 {
-        "docker_repo": "docker.osdc.io/ncigdc",
-        "bio_client": "latest"
+    "docker_repository": "docker.osdc.io/ncigdc",
+    "bio_client": "latest",
+    "fedora": "26",
+    "bam_readgroup_to_json": "1.0.1",
+    "bam_reheader": "1.0.0",
+    "biobambam": "2.0.95-e069a11",
+    "bwa": "0.7.19-f9758a0",
+    "fastq_cleaner": "1.0.0-28dc9d4",
+    "fastqc": "0.11.7-181d296",
+    "fastqc_to_json": "1.1.0",
+    "fastqc_db": "1.0.2",
+    "integrity_to_sqlite": "2.0.0",
+    "json_to_sqlite": "1.1.0",
+    "ubuntu": "bionic-20180426",
+    "merge_sqlite": "1.1.1",
+    "mirna_profiler": "1.0-b55874e",
+    "picard": "2.26.10-7c1f408",
+    "picard_metrics_sqlite": "1.1.2",
+    "readgroup_json_db": "2.0.0",
+    "samtools": "1.9-6c12b02",
+    "samtools_metrics_sqlite": "1.0.0",
+    "cutadapt_docker": "1.0.0",
+    "bio_alpine": "base"
 }

@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/picard:2.26.10
+    dockerPull: {{ docker_repository }}/picard:2.26.10-7c1f408
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1

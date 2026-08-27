@@ -5,7 +5,8 @@ cwlVersion: v1.0
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/fastqc_to_json:0ebd446f08d9eb6ed5b069e9ae53ad822236dc56bb1154f9df0e0c22b5724ae7
+#    dockerPull: "{{ docker_repository }}/fastqc_to_json:{{ fastqc_to_json }}"
+    dockerPull: dev-containers.osdc.io/ncigdc/fastqc_to_json:2dea589
   - class: ResourceRequirement
     coresMin: 1
     coresMax: 1
@@ -30,5 +31,5 @@ outputs:
     outputBinding:
       glob: "fastqc.json"
 
-baseCommand: [/usr/local/bin/fastqc_to_json]
+baseCommand: []
 

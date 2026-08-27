@@ -5,7 +5,7 @@ cwlVersion: v1.0
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement
-    dockerPull: quay.io/dmiller15/cutadapt
+    dockerPull:"{{ docker_repository }}/cutadapt-docker:{{ cutadapt_docker }}"
   - class: InlineJavascriptRequirement
 
 class: CommandLineTool

@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/fastqc:27ec215ea82bd62a76ec86f9c8a692010cc0c99169e68d2fa0c0052450321f57
+    dockerPull: {{ docker_repository }}/fastqc:{{ fastqc }}
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: $(inputs.threads)
@@ -117,5 +117,5 @@ outputs:
     outputBinding:
       glob: "*_fastqc.zip"
           
-baseCommand: [/usr/local/FastQC/fastqc]
+baseCommand: [/usr/local/bin/fastqc]
 

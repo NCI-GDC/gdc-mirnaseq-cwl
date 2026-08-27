@@ -3,7 +3,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/bam_readgroup_to_json:1.0.1
+    dockerPull: "{{ docker_repository }}/bam_readgroup_to_json:{{ bam_readgroup_to_json }}"
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1

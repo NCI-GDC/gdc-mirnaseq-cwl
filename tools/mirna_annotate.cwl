@@ -1,54 +1,31 @@
 #!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
+class: CommandLineTool
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/mirna-profiler:cf8e9fe91f6f5df0d957af3496f454037b822ab0
+    dockerPull: "{{ docker_repository }}/mirna-profiler:{{ mirna_profiler }}"
   - class: InitialWorkDirRequirement
     listing:
       - entryname: $(inputs.sam.basename)
         entry: $(inputs.sam)
         writable: true
-  - class: ShellCommandRequirement
-
-class: CommandLineTool
 
 inputs:
   - id: sam
     type: File
-    
   - id: mirbase
     type: string
-    default: "hg38"
-    inputBinding:
-      position: 90
-      prefix: -m
-      shellQuote: false
-
+    default: mirbase
   - id: ucsc_database
     type: string
-    default: "hg38"
-    inputBinding:
-      position: 91
-      prefix: -u
-      shellQuote: false
-
+    default: hg38
   - id: species_code
     type: string
-    default: "hsa"
-    inputBinding:
-      position: 92
-      prefix: -o
-      shellQuote: false
-
+    default: hsa
   - id: project_directory
     type: string
     default: "."
-    inputBinding:
-      position: 93
-      prefix: -p
-      shellQuote: false
 
 outputs:
   - id: output
@@ -56,26 +33,34 @@ outputs:
     outputBinding:
       glob: $(inputs.sam.basename)
 
+baseCommand:
+  - bash
+  - -lc
+
 arguments:
-  - valueFrom: "chmod 1777 /tmp"
-    position: 0
-    shellQuote: false
+  - position: 0
+    valueFrom: >-
+      set -euo pipefail &&
+      mkdir -p /var/run/mysqld /var/lib/mysql /var/lib/mysql-files &&
+      test -f /var/lib/mysql/mysql/user.frm &&
+      test -f /var/lib/mysql/mysql/plugin.frm &&
+      /usr/sbin/mysqld
+      --datadir=/var/lib/mysql
+      --socket=/var/lib/mysql/mysql.sock
+      --pid-file=/var/run/mysqld/mysqld.pid
+      --bind-address=127.0.0.1
+      --skip-networking=0
+      --daemonize &&
 
-  - valueFrom: "&& sudo chown -R mysql:mysql /var/lib/mysql"
-    position: 1
-    shellQuote: false
+      for i in 1 2 3 4 5 6 7 8 9 10; do
+        mysqladmin --socket=/var/lib/mysql/mysql.sock ping --silent && break;
+        sleep 1;
+      done &&
 
-  - valueFrom: "&& sudo /usr/sbin/mysqld --defaults-file=/etc/mysql/my.cnf --user=mysql --daemonize"
-    position: 2
-    shellQuote: false
+      mysqladmin --socket=/var/lib/mysql/mysql.sock ping --silent &&
 
-  - valueFrom: "&& /usr/mirna/code/annotation/annotate.pl"
-    position: 3
-    shellQuote: false
-
-  # - valueFrom: "&& chown -R ubuntu:ubuntu /var/spool/cwl"
-  #   position: 94
-  #   shellQuote: false
-
-baseCommand: []
-
+      /usr/mirna/code/annotation/annotate.pl
+      -m "$(inputs.mirbase)"
+      -u "$(inputs.ucsc_database)"
+      -o "$(inputs.species_code)"
+      -p "$(inputs.project_directory)"

@@ -4,13 +4,13 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/samtools_metrics_sqlite:f64466282ce61dfc9251e7c32c5130928abf0a68c1f8e00b47d9709c5b3e3321
+    dockerPull: "{{ docker_repository }}/samtools_metrics_sqlite:{{ samtools_metrics_sqlite }}"
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1
     coresMax: 1
-    ramMin: 2000
-    ramMax: 2000
+    ramMin: 1000
+    ramMax: 1000
     tmpdirMin: 5
     tmpdirMax: 5
     outdirMin: 5
@@ -39,16 +39,22 @@ inputs:
     inputBinding:
       prefix: --job_uuid
 
+  - id: metric_name
+    type: string
+    default: flagstat
+    inputBinding:
+      prefix: --metric_name
+
+
 outputs:
   - id: log
-    type: File
+    type:
+      - "null"
+      - File
     outputBinding:
-      glob: $(inputs.job_uuid+"_samtools_flagstat.log")
+      glob: "$(inputs.job_uuid)_samtools_flagstat.log"
 
   - id: sqlite
     type: File
     outputBinding:
-      glob: $(inputs.job_uuid + ".db")
-
-baseCommand: [/usr/local/bin/samtools_metrics_sqlite, --metric_name, flagstat]
-
+      glob: "$(inputs.job_uuid).db"
